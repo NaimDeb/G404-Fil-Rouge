@@ -14,33 +14,38 @@
 
     </nav>
 
-        <!-- Searchbar -->
-        <div id="searchbar" class="bg-neutral-off-white py-2 px-4 w-full rounded-sm flex-nowrap justify-between">
 
-            <select name="searchChoice" id="search-choice" class="bg-neutral-off-white w-1/5 truncate text-sm font-bold">
-            <option value="all">Tous</option>
-            <option value="book">Livres</option>
-            <option value="author">Auteurs</option>
-            <option value="user">Utilisateurs</option>
+    <!-- Searchbar -->
+    <div id="searchbar" class="bg-neutral-off-white py-2 px-4 w-full rounded-sm flex flex-nowrap items-center justify-between gap-2">
+
+        <!-- Dropdown et séparateur -->
+        <div class="flex items-center basis-1/5">
+        <label for="search-choice" class="sr-only" >Type de recherche</label>
+            <select name="searchChoice" id="search-choice" class="bg-neutral-off-white truncate text-sm font-bold w-full" aria-label="Choisissez le type de recherche">
+                <option value="all">Tous</option>
+                <option value="book">Livres</option>
+                <option value="author">Auteurs</option>
+                <option value="user">Utilisateurs</option>
             </select>
-
-            <input
-                type="text"
-                onkeyup="showResult(this.value)"
-                placeholder="Vous cherchez un livre ? Recherchez ici..."
-                class=" text-neutral-off-black sm:flex-1 focus:outline-none">
-            <i class="fas fa-magnifying-glass text-neutral-white"></i>
-
-            <!-- Live Search Results -->
-            <div class="livesearch absolute top-full left-0 mt-2 w-full bg-neutral-off-black shadow-lg p-4 space-y-4 hidden">
-            </div>
-
+            <!-- Séparateur -->
+            <div class="w-[1px] h-4 mx-2 bg-neutral-off-black" aria-hidden="true"></div>
         </div>
 
+        <!-- Champ de recherche -->
+        <label for="search-input" class="sr-only">Rechercher un livre</label>
+        <input
+            type="text"
+            onkeyup="showResult(this.value)"
+            placeholder="Vous cherchez un livre ? Recherchez ici..."
+            class="text-neutral-off-black focus:outline-none basis-3/5 w-full truncate"
+            aria-label="Rechercher un livre ou un utilisateur"
+            aria-live="polite"
+        >
+            
 
-        <!-- Se connecter div -->
-
-    
+        <!-- Icône de recherche -->
+        <i class="fas fa-magnifying-glass text-xl basis-auto" aria-label="Lancer la recherche"></i>
+    </div>
 
 
     <!-- lg+ genres nav -->
@@ -54,3 +59,13 @@
     </nav>
 
 </header>
+
+
+<!-- 
+SQL:
+
+
+
+
+
+-->

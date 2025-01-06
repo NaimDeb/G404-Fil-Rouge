@@ -556,6 +556,18 @@ video {
   display: none;
 }
 
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .absolute{
   position: absolute;
 }
@@ -570,6 +582,11 @@ video {
 
 .end-0{
   inset-inline-end: 0px;
+}
+
+.mx-2{
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .mt-2{
@@ -600,6 +617,18 @@ video {
   height: 50%;
 }
 
+.h-3\/4{
+  height: 75%;
+}
+
+.h-16{
+  height: 4rem;
+}
+
+.h-4{
+  height: 1rem;
+}
+
 .max-h-full{
   max-height: 100%;
 }
@@ -625,6 +654,38 @@ video {
   width: 50%;
 }
 
+.w-3\/5{
+  width: 60%;
+}
+
+.w-2{
+  width: 0.5rem;
+}
+
+.w-\[2px\]{
+  width: 2px;
+}
+
+.w-\[1px\]{
+  width: 1px;
+}
+
+.basis-4{
+  flex-basis: 1rem;
+}
+
+.basis-1\/5{
+  flex-basis: 20%;
+}
+
+.basis-3\/5{
+  flex-basis: 60%;
+}
+
+.basis-auto{
+  flex-basis: auto;
+}
+
 .cursor-pointer{
   cursor: pointer;
 }
@@ -647,6 +708,10 @@ video {
 
 .justify-between{
   justify-content: space-between;
+}
+
+.gap-2{
+  gap: 0.5rem;
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]){
