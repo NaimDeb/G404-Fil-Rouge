@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "tailwindcss": "^3.4.17"
+  },
+  "name": "bookmarket",
+  "version": "1.0.0",
+  "description": "## 📚 Le projet BookMarket",
+  "main": "tailwind.config.js",
+  "devDependencies": {},
+  "scripts": {
+    "build:css": "tailwindcss build -i ./assets/css/input.css -o ./assets/css/output.css",
+    "dev:css": "tailwindcss build -i ./assets/css/input.css -o ./assets/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+  
+}
+
