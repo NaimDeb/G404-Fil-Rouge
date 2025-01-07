@@ -18,8 +18,8 @@ module.exports = {
       },
       fontFamily: {
         "open-sans" : ["Open Sans", "sans-serif"],
-        Merriweather : ["Merriweather", "serif"],
-        "Merriweather-sans-serif" : ["Merriweather", "sans-serif"]
+        merriweather : ["Merriweather", "serif"],
+        "merriweather-sans" : ["Merriweather", "sans-serif"]
       }
     },
   },
