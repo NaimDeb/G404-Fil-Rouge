@@ -9,15 +9,15 @@
             </a>
 
             <!-- Logo  -->
-            <a href="#" class="w-[80%] md:order-1 mx-auto md:px-2">
+            <a href="<?= $root_path ?>/public/pages/home.php" class="w-[80%] md:order-1 mx-auto md:px-2">
                 <img src="<?= $root_path ?>/assets/src/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-12 mx-auto sm:mx-0">
             </a>
 
             <!-- User  -->
-            <a href="#" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden">
-                <label for="connexion" class="text-sm text-nowrap hidden sm:visible">Se connecter</label>
+            <a href="<?= $root_path ?>/public/pages/login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
                 <i class="fas fa-user"></i>
             </a>
+
         </div>
 
         <!-- Searchbar -->
@@ -49,10 +49,10 @@
             <i class="fas fa-magnifying-glass text-xl basis-auto" aria-label="Lancer la recherche"></i>
         </div>
 
-        <!-- User  -->
-        <a href="#" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden">
-            <label for="connexion" class="text-sm text-nowrap ">Se connecter</label>
-            <i class="fas fa-user "></i>
+        <!-- User (md+) -->
+        <a href="<?= $root_path ?>/public/pages/login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <span class="text-sm text-nowrap self-end mr-2">Se connecter</span>
+            <i class="fas fa-user"></i>
         </a>
 
     </div>
@@ -61,14 +61,14 @@
     <nav class="hidden md:flex w-full justify-between items-center mt-4 font-merriweather">
         <!-- Liens principaux -->
         <div class="flex space-x-8 text-white font-bold basis-2/3 justify-between text-nowrap">
-            <a href="/new" class="hover:underline">Nouveautés</a>
-            <a href="/classics" class="hover:underline">Classiques incontournables</a>
-            <a href="/cheap" class="hover:underline">Petits prix</a>
-            <a href="/youth" class="hover:underline">Jeunesse</a>
+            <a href="<?= $root_path ?>/public/pages/new.php" class="hover:underline">Nouveautés</a>
+            <a href="<?= $root_path ?>/public/pages/classics.php" class="hover:underline">Classiques incontournables</a>
+            <a href="<?= $root_path ?>/public/pages/cheap.php" class="hover:underline">Petits prix</a>
+            <a href="<?= $root_path ?>/public/pages/youth.php" class="hover:underline">Jeunesse</a>
         </div>
 
         <!-- Bouton Vendre un livre -->
-        <a href="/sell" class="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-primary-green transition">
+        <a href="<?= $root_path ?>/public/pages/sell.php" class="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-primary-green transition">
             Vendre un livre
         </a>
     </nav>

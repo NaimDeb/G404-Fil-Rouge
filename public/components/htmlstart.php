@@ -1,7 +1,7 @@
 <?php
 $root_path = "/BookMarket";  // Chemin du projet.
 
-require_once "./globals.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . '/BookMarket/globals.php';
 
 ?>
 

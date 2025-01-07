@@ -2,7 +2,7 @@
 
 
      
-<div class="flex flex-col md:flex-row justify-between items-start items-center space-y-6 md:space-y-0 text-neutral-off-white">
+<div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 text-neutral-off-white">
     
     <!-- Logo -->
     <a href="#" class="max-h-full md:w-auto">
