@@ -2,7 +2,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . "/BookMarket/utils/connectDB.php");
 session_start();
 
-if (isset($_SESSION["user"])) {
+if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
 
     $sql = "SELECT image.img_path FROM image JOIN user ON image.id = user.id_image WHERE user.id = :id";
     
@@ -11,6 +11,8 @@ if (isset($_SESSION["user"])) {
 
     $temppath = $stmt->fetch()["img_path"];
     $image = $root_path . $temppath ;
+
+    $_SESSION["user"]["imgPath"] = $image;
 
 };
 
@@ -37,7 +39,7 @@ if (isset($_SESSION["user"])) {
             <?php if (isset($_SESSION["user"])): ?>
                 <a href="<?= $root_path ?>/public/pages/profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
                     <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
-                    <img src="<?= $image ?>" alt="User Image" class="rounded-full h-8 w-8">
+                    <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
                 </a>
             <?php else: ?>
                 <a href="<?= $root_path ?>/public/pages/login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
@@ -80,7 +82,7 @@ if (isset($_SESSION["user"])) {
         <?php if (isset($_SESSION["user"])): ?>
             <a href="<?= $root_path ?>/public/pages/profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
                 <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
-                <img src="<?= $image ?>" alt="User Image" class="rounded-full h-8 w-8">
+                <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
             </a>
         <?php else: ?>
             <a href="<?= $root_path ?>/public/pages/login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
