@@ -16,6 +16,9 @@ require_once "../components/header.php";
     <!-- Formulaire de connexion  -->
     <div class="w-[35%] h-[90vh] bg-primary-beige flex items-center justify-center px-24 py-4">
 
+
+
+        <form action="../../process/process_connexion.php" method="POST" class="w-full space-y-4">
         <?php 
 
         if(isset($_GET['error'])) {
@@ -26,14 +29,11 @@ require_once "../components/header.php";
         }
 
         ?>
-
-
-        <form action="../../process/process_connexion.php" method="POST" class="w-full space-y-4">
             <h2 class="text-xl font-semibold text-center text-primary-green mb-4">Se connecter</h2>
 
             <div class="flex flex-col">
-                <label for="email" class="text-sm font-semibold text-gray-600">Adresse email</label>
-                <input type="email" id="email" name="email" class="border border-gray-300 p-3 rounded-md mt-2" placeholder="Email" required>
+                <label for="mailOrUsername" class="text-sm font-semibold text-gray-600">Adresse email ou nom d'utilisateur</label>
+                <input type="text" id="mailOrUsername" name="mailOrUsername" class="border border-gray-300 p-3 rounded-md mt-2" placeholder="Email" required>
             </div>
 
             <div class="flex flex-col">

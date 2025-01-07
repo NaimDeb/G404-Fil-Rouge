@@ -1,3 +1,23 @@
+<?php 
+require_once($_SERVER['DOCUMENT_ROOT'] . "/BookMarket/utils/connectDB.php");
+session_start();
+
+if (isset($_SESSION["user"])) {
+
+    $sql = "SELECT image.img_path FROM image JOIN user ON image.id = user.id_image WHERE user.id = :id";
+    
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(['id' => $_SESSION["user"]["id"]]);
+
+    $temppath = $stmt->fetch()["img_path"];
+    $image = $root_path . $temppath ;
+
+};
+
+
+
+?>
+
 <header class="bg-primary-green w-full h-[11vh] md:h-fit flex flex-col py-4 px-4 md:px-8">
 
     <div class="md:h-full flex flex-col md:flex-row md:items-center md:justify-between">
@@ -9,14 +29,21 @@
             </a>
 
             <!-- Logo  -->
-            <a href="<?= $root_path ?>/public/pages/home.php" class="w-[80%] md:order-1 mx-auto md:px-2">
+            <a href="<?= $root_path ?>/index.php" class="w-[80%] md:order-1 mx-auto md:px-2">
                 <img src="<?= $root_path ?>/assets/src/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-12 mx-auto sm:mx-0">
             </a>
 
-            <!-- User  -->
-            <a href="<?= $root_path ?>/public/pages/login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
-                <i class="fas fa-user"></i>
-            </a>
+            <!-- User sm et moins  -->
+            <?php if (isset($_SESSION["user"])): ?>
+                <a href="<?= $root_path ?>/public/pages/profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
+                    <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
+                    <img src="<?= $image ?>" alt="User Image" class="rounded-full h-8 w-8">
+                </a>
+            <?php else: ?>
+                <a href="<?= $root_path ?>/public/pages/login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
+                    <i class="fas fa-user"></i>
+                </a>
+            <?php endif; ?>
 
         </div>
 
@@ -50,10 +77,17 @@
         </div>
 
         <!-- User (md+) -->
-        <a href="<?= $root_path ?>/public/pages/login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
-            <span class="text-sm text-nowrap self-end mr-2">Se connecter</span>
-            <i class="fas fa-user"></i>
-        </a>
+        <?php if (isset($_SESSION["user"])): ?>
+            <a href="<?= $root_path ?>/public/pages/profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+                <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
+                <img src="<?= $image ?>" alt="User Image" class="rounded-full h-8 w-8">
+            </a>
+        <?php else: ?>
+            <a href="<?= $root_path ?>/public/pages/login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+                <span class="text-sm text-nowrap self-end mr-2">Se connecter</span>
+                <i class="fas fa-user"></i>
+            </a>
+        <?php endif; ?>
 
     </div>
 
