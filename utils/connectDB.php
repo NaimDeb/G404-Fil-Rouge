@@ -1,5 +1,7 @@
 <?php
 
+require $_SERVER['DOCUMENT_ROOT']  . '/BookMarket/globals.php';
+
 try{
     $host = "localhost";
     $dbname = "bookmarket";

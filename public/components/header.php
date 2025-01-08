@@ -10,9 +10,8 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
     $stmt->execute(['id' => $_SESSION["user"]["id"]]);
 
     $temppath = $stmt->fetch()["img_path"];
-    $image = $root_path . $temppath ;
 
-    $_SESSION["user"]["imgPath"] = $image;
+    $_SESSION["user"]["imgPath"] = $temppath;
 
 };
 
