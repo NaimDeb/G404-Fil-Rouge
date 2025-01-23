@@ -9,7 +9,7 @@ if (!isset($_SESSION["user"])) {
 }
 
 $username = $user->getUserName();
-$user_image = $user->getImg_url();
+$user_image = $user->getUserDetails()->getImg_url();
 $user_desc = $user->getProfile_description();
 $user_role = $user->getRole();
 $userMail = $user->getMail();
@@ -22,18 +22,19 @@ if ($user_desc == null) {
 
 $isProfessional = false;
 
-$user_FirstName = $user->getFirstName();
-$user_LastName = $user->getLastName();
-$user_Address = $user->getAddress();
-$user_Phone = $user->getPhone();
-$user_Country = $user->getCountry();
+$user_FirstName = $user->getUserDetails()->getFirstName();
+$user_LastName = $user->getUserDetails()->getLastName();
+$user_Address = $user->getUserDetails()->getAddress();
+$user_Phone = $user->getUserDetails()->getPhone();
+$user_Country = $user->getUserDetails()->getCountry();
 
 
 
 
 
 // Si l'utilisateur est un professionnel, on récupère les données.
-if ($user instanceof Professional) {
+if ($user->getProfessionalDetails() != null) {
+    $user_professional = $user->getProfessionalDetails();
     $company_name = $user_professional->getCompany_name();
     $company_address = $user_professional->getCompany_address();
     $company_phone = $user_professional->getCompany_phone();
@@ -56,7 +57,7 @@ if ($user instanceof Professional) {
 
 
             <!-- Form to change profile picture, hidden by default -->
-            <form id="changeProfilePictureForm" method="POST" action="../../process/process_changeProfilePicture.php" enctype="multipart/form-data" class="hidden">
+            <form id="changeProfilePictureForm" method="POST" action="../process/process_changeProfilePicture.php" enctype="multipart/form-data" class="hidden">
                 <input type="file" name="profile_picture" id="profile_picture" accept="image/*" onchange="submitProfilePictureForm()">
             </form>
 
@@ -84,7 +85,7 @@ if ($user instanceof Professional) {
                 <p id="profile_desc" class="font-light py-2 px-4 text-sm"><?= $user_desc ?></p>
 
                 <!-- Form to change profile description, hidden by default -->
-                <form id="changeDescForm" method="POST" action="../../process/process_changeProfileDesc.php" class="hidden">
+                <form id="changeDescForm" method="POST" action=../process/process_changeProfileDesc.php" class="hidden">
                     <input type="text" name="profile_desc" id="profile_desc_input" class="font-light py-2 px-4 text-sm w-full" value="<?= $user_desc ?>">
                     <button type="submit" class="bg-primary-green text-neutral-off-white rounded-full p-2 text-sm m-auto">
                         <i class="fas fa-check"></i>
@@ -106,7 +107,7 @@ if ($user instanceof Professional) {
 
     <section class="flex justify-between gap-8 flex-wrap px-8">
         <!-- Form to change user -->
-        <form method="POST" action="../../process/process_changeUser.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
+        <form method="POST" action="../process/process_changeUser.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
             <p class="text-xl font-bold font-merriweather text-primary-green mb-4"> Informations de compte </p>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="username">Nom d'utilisateur</label>
@@ -137,7 +138,7 @@ if ($user instanceof Professional) {
         </form>
 
         <!-- Form user details -->
-        <form method="POST" action="../../process/process_changeUserDetails.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
+        <form method="POST" action="../process/process_changeUserDetails.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
             <p class="text-xl font-bold font-merriweather text-primary-green mb-4"> Informations personnelles </p>
 
             <div class="mb-4">
@@ -168,7 +169,7 @@ if ($user instanceof Professional) {
 
         <?php if ($isProfessional) : ?>
             <!-- form pro_details -->
-            <form method="POST" action="../../process/process_changeProfessionalDetails.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
+            <form method="POST" action="../process/process_changeProfessionalDetails.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
                 <p class="text-xl font-bold font-merriweather text-primary-green mb-4"> Informations d'entreprise </p>
 
                 <div class="mb-4">
@@ -209,7 +210,7 @@ if ($user instanceof Professional) {
 
 
             try {
-                const response = await fetch('../../process/process_changeProfilePicture.php', {
+                const response = await fetch('../process/process_changeProfilePicture.php', {
                     method: 'POST',
                     body: formData
                 });

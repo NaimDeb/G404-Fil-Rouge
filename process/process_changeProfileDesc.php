@@ -1,8 +1,18 @@
 <?php
 session_start();
-require_once "../utils/connectDB.php";
-require_once "./process_sanitization.php";
+require_once "../utils/autoloader.php";
 
+
+$userRepo = new UserRepository;
+
+// Vérification POST et si user existe
+if (!isset($_SESSION["user"]) || !isset($_POST)) {
+    header("location: ../public/manageProfile.php");
+    die();
+}
+
+
+//  ------- Profile Description -------
 
 $user_details = ["profile_desc"];
 
@@ -23,3 +33,6 @@ $stmt->execute([
 
 header("location: ../public/pages/profile.php");
 
+
+
+?>

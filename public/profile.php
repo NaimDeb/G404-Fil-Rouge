@@ -12,7 +12,7 @@ if (!isset($_SESSION["user"])) {
 
 
 $username = $user->getUserName();
-$user_image = $user->getImg_url();
+$user_image = $user->getUserDetails()->getImg_url();
 $user_desc = $user->getProfile_description();
 
 
@@ -23,7 +23,7 @@ if ($user_desc == null) {
 
 $isProfessional = false;
 
-if ($user instanceof Professional) {
+if (null !== $user->getProfessionalDetails()) {
     $isProfessional = true;
 }
 

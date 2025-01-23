@@ -76,7 +76,7 @@ class UserRepository extends AbstractRepository
      */
     public function fetchUserByMailOrUsername(string $input): ?User
     {
-        $sql = "SELECT * FROM user JOIN image ON  user.id_image = image.id  JOIN user_details ON user.id = user_details.id_user WHERE user_mail = :input OR username = :input";
+        $sql = "SELECT * FROM user WHERE user_mail = :input OR username = :input";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':input', $input);
@@ -88,7 +88,27 @@ class UserRepository extends AbstractRepository
             return null;
         }
 
-        if ($data["role"] === "professional") {
+        $user = UserMapper::mapToObject($data);
+
+
+        // ------ User details -------
+
+        $sqlDetails = "SELECT user.id, address, phone, country, firstName, lastName, img_path FROM user JOIN user_details ON user.id = user_details.id_user JOIN image ON image.id = user.id_image WHERE user.id = :id";
+
+        $stmt = $this->db->prepare($sqlDetails);
+
+        $stmt->bindParam(':id' ,  $data['id']);
+
+        $stmt->execute();
+
+        $userDetailsData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $userDetails = UserDetailsMapper::mapToObject($userDetailsData);
+
+        $user->setUserDetails($userDetails);
+
+
+        // ------ Professional details -------
 
             $sqlPro = "SELECT * FROM professional_details WHERE id_user = :id";
 
@@ -98,12 +118,17 @@ class UserRepository extends AbstractRepository
 
             $proData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $data = array_merge($data, $proData);
-        }
+            if($proData){
+                $professionalData = ProfessionalDataMapper::mapToObject($proData);
 
-        return UserMapper::mapToObject($data);
+                $user->setProfessionalDetails($professionalData);
+            }
+            
+            
+            return $user;
+        } 
+
+
+    
 
     }
-
-
-}

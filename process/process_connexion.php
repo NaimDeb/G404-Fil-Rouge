@@ -40,4 +40,10 @@ if (!password_verify($_POST["password"], $user->getPassword())) {
 
 $_SESSION["user"] = $user;
 
+
 header("location: ../index.php");
+
+
+
+// ! todo : Doesn't work if there's no professional data for the user
+// ! todo : doesn't work

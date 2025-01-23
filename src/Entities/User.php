@@ -1,30 +1,29 @@
 <?php
 
-abstract class User {
+class User {
 
-    protected int $id;
-    protected string $username;
-    protected string $password;
-    protected string $mail;
-    protected string $profile_description;
-    protected string $role;
-    protected string $img_url;
+    private int $id;
+    private string $username;
+    private string $password;
+    private string $mail;
+    private string $profile_description;
+    private string $role;
+
+    private UserDetails $userDetails;
+    private ?ProfessionalDetails $professionalDetails = null;
+
+    
 	
 
-    protected string $address;
-    protected string $phone;
-    protected string $country;
-    protected string $firstName;
-    protected string $lastName;
 
-    public function __construct($id, $username, $password, $mail, $profile_description, $role, $img_url){
+
+    public function __construct($id, $username, $password, $mail, $profile_description, $role){
         $this->id = $id;
         $this->username = $username;
         $this->password = $password;
         $this->mail = $mail;
         $this->profile_description = $profile_description;
         $this->role = $role;
-        $this->img_url = $img_url;
     }
 
 
@@ -71,110 +70,43 @@ abstract class User {
         return $this->role;
     }
 
+
     /**
-     * Get the value of img_url
+     * Get the value of userDetails
      */ 
-    public function getImg_url()
+    public function getUserDetails()
     {
-        return $this->img_url;
+        return $this->userDetails;
     }
 
     /**
-     * Get the value of address
-     */ 
-    public function getAddress()
-    {
-        return $this->address;
-    }
-
-    /**
-     * Set the value of address
+     * Set the value of userDetails
      *
      * @return  self
      */ 
-    public function setAddress($address)
+    public function setUserDetails($userDetails)
     {
-        $this->address = $address;
+        $this->userDetails = $userDetails;
 
         return $this;
     }
 
     /**
-     * Get the value of phone
+     * Get the value of professionalDetails
      */ 
-    public function getPhone()
+    public function getProfessionalDetails()
     {
-        return $this->phone;
+        return $this->professionalDetails;
     }
 
     /**
-     * Set the value of phone
+     * Set the value of professionalDetails
      *
      * @return  self
      */ 
-    public function setPhone($phone)
+    public function setProfessionalDetails($professionalDetails)
     {
-        $this->phone = $phone;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of country
-     */ 
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set the value of country
-     *
-     * @return  self
-     */ 
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of firstName
-     */ 
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * Set the value of firstName
-     *
-     * @return  self
-     */ 
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of lastName
-     */ 
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    /**
-     * Set the value of lastName
-     *
-     * @return  self
-     */ 
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
+        $this->professionalDetails = $professionalDetails;
 
         return $this;
     }
