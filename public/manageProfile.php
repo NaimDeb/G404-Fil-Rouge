@@ -2,43 +2,19 @@
 require_once "./components/htmlstart.php";
 require_once "./components/header.php";
 
-// Get every profile detail
-$sql = "SELECT * FROM user JOIN user_details ON user_details.id_user = user.id WHERE user.id = :id";
-
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['id' => $_SESSION["user"]["id"]]);
-
-$user_details = $stmt->fetch(PDO::FETCH_ASSOC);
-
-var_dump($user_details);
-
-if (!$user_details["profile_desc"]) {
-    $user_details["profile_desc"] = "Complétez votre profil avec une petite description !";
-}
-
-if ($_SESSION["user"]["role"] == "professional") {
-
-    $sqlcompany = "SELECT * FROM professional_details WHERE id_user = :id";
-    $stmt = $pdo->prepare($sqlcompany);
-    $stmt->execute(['id' => $_SESSION["user"]["id"]]);
-    $company_details = $stmt->fetch(PDO::FETCH_ASSOC);
-} else {
-    $company_details = null;
-}
-
 
 if (!isset($_SESSION["user"])) {
     header("location: ./home.php");
     die();
 }
 
-
-
+var_dump($_SESSION["user"]);
 
 $username = $user->getUserName();
 $user_image = $user->getImg_url();
 $user_desc = $user->getProfile_description();
 $user_role = $user->getRole();
+$userMail = $user->getMail();
 
 
 // Si la description est null, on affiche un message par défaut
@@ -47,6 +23,16 @@ if ($user_desc == null) {
 };
 
 $isProfessional = false;
+
+$user_FirstName = $user->getFirstName();
+$user_LastName = $user->getLastName();
+$user_Address = $user->getAddress();
+$user_Phone = $user->getPhone();
+$user_Country = $user->getCountry();
+
+
+
+
 
 // Si l'utilisateur est un professionnel, on récupère les données.
 if ($user instanceof Professional) {
@@ -68,7 +54,7 @@ if ($user instanceof Professional) {
         <div class="text-neutral-off-white bg-green-500 p-2 text-center hidden" id="responseMessage"></div>
         <div class="relative w-fit m-auto">
             <!-- Display user's profile picture -->
-            <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
+            <img src="./assets/images/users/<?= $user_image ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
 
 
             <!-- Form to change profile picture, hidden by default -->
@@ -87,8 +73,8 @@ if ($user instanceof Professional) {
             <!-- Display username and role -->
             <p class="text-2xl font-bold text-neutral-off-white font-merriweather">
                 <?php
-                echo $_SESSION["user"]["username"];
-                if ($_SESSION["user"]["role"] == "professional") {
+                echo $username;
+                if ($isProfessional) {
                     echo "<i title='Professionel' class='fas fa-check p-2'></i>";
                 }
                 ?>
@@ -97,11 +83,11 @@ if ($user instanceof Professional) {
             <!-- Profile description container -->
             <div class="max-w-[80%] bg-neutral-off-white text-primary-green rounded-lg rounded-tl-none font-open-sans relative">
                 <!-- Display profile description -->
-                <p id="profile_desc" class="font-light py-2 px-4 text-sm"><?= $user_details["profile_desc"] ?></p>
+                <p id="profile_desc" class="font-light py-2 px-4 text-sm"><?= $user_desc ?></p>
 
                 <!-- Form to change profile description, hidden by default -->
                 <form id="changeDescForm" method="POST" action="../../process/process_changeProfileDesc.php" class="hidden">
-                    <input type="text" name="profile_desc" id="profile_desc_input" class="font-light py-2 px-4 text-sm w-full" value="<?= $user_details["profile_desc"] ?>">
+                    <input type="text" name="profile_desc" id="profile_desc_input" class="font-light py-2 px-4 text-sm w-full" value="<?= $user_desc ?>">
                     <button type="submit" class="bg-primary-green text-neutral-off-white rounded-full p-2 text-sm m-auto">
                         <i class="fas fa-check"></i>
                     </button>
@@ -125,12 +111,12 @@ if ($user instanceof Professional) {
         <form method="POST" action="../../process/process_changeUser.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
             <p class="text-xl font-bold font-merriweather text-primary-green mb-4"> Informations de compte </p>
             <div class="mb-4">
-                <label class="block text-primary-green text-sm font-bold mb-2" for="user_mail">Nom d'utilisateur</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="username" id="username" type="text" value="<?= $user_details["username"] ?>" placeholder="Email">
+                <label class="block text-primary-green text-sm font-bold mb-2" for="username">Nom d'utilisateur</label>
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="username" id="username" type="text" value="<?= $username ?>" placeholder="Nom d'utilisateur">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="user_mail">Email</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="user_mail" id="user_mail" type="email" value="<?= $user_details["user_mail"] ?>" placeholder="Email">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="user_mail" id="user_mail" type="email" value="<?= $userMail ?>" placeholder="Email">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="old_password">Ancien mot de passe</label>
@@ -158,23 +144,23 @@ if ($user instanceof Professional) {
 
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="firstName">Prénom</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="firstName" id="firstName" type="text" value="<?= $user_details["firstName"] ?>" placeholder="Prénom">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="firstName" id="firstName" type="text" value="<?= $user_FirstName ?>" placeholder="Prénom">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="lastName">Nom</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="lastName" id="lastName" type="text" value="<?= $user_details["lastName"] ?>" placeholder="Nom">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="lastName" id="lastName" type="text" value="<?= $user_LastName ?>" placeholder="Nom">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="address">Adresse</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="address" id="address" type="text" value="<?= $user_details["address"] ?>" placeholder="Adresse">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="address" id="address" type="text" value="<?= $user_Address ?>" placeholder="Adresse">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="phone">Téléphone</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="phone" id="phone" type="text" value="<?= $user_details["phone"] ?>" placeholder="Téléphone">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="phone" id="phone" type="text" value="<?= $user_Phone ?>" placeholder="Téléphone">
             </div>
             <div class="mb-4">
                 <label class="block text-primary-green text-sm font-bold mb-2" for="country">Pays</label>
-                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="country" id="country" type="text" value="<?= $user_details["country"] ?>" placeholder="Pays">
+                <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" name="country" id="country" type="text" value="<?= $user_Country ?>" placeholder="Pays">
             </div>
             <!-- Bouton confirmer -->
             <div class="flex justify-end">
@@ -182,22 +168,22 @@ if ($user instanceof Professional) {
             </div>
         </form>
 
-        <?php if ($_SESSION['user']['role'] == 'professional') : ?>
+        <?php if ($isProfessional) : ?>
             <!-- form pro_details -->
             <form method="POST" action="../../process/process_changeProfessionalDetails.php" class="border-gray-400 border-[2px] shadow-sm w-full max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg mb-8">
                 <p class="text-xl font-bold font-merriweather text-primary-green mb-4"> Informations d'entreprise </p>
 
                 <div class="mb-4">
                     <label class="block text-primary-green text-sm font-bold mb-2" for="company_name">Nom de l'entreprise</label>
-                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_name" name="company_name" type="text" value="<?= $company_details["company_name"] ?>" placeholder="Nom de l'entreprise">
+                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_name" name="company_name" type="text" value="<?= $company_name ?>" placeholder="Nom de l'entreprise">
                 </div>
                 <div class="mb-4">
                     <label class="block text-primary-green text-sm font-bold mb-2" for="company_address">Adresse de l'entreprise</label>
-                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_address" name="company_address" type="text" value="<?= $company_details["company_address"] ?>" placeholder="Adresse de l'entreprise">
+                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_address" name="company_address" type="text" value="<?= $company_address ?>" placeholder="Adresse de l'entreprise">
                 </div>
                 <div class="mb-4">
                     <label class="block text-primary-green text-sm font-bold mb-2" for="company_phone">Téléphone de l'entreprise</label>
-                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_phone" name="company_phone" type="text" value="<?= $company_details["company_phone"] ?> " placeholder="Nom de l'entreprise">
+                    <input class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" id="company_phone" name="company_phone" type="text" value="<?= $company_phone ?>" placeholder="Téléphone de l'entreprise">
                 </div>
                 <!-- Bouton confirmer -->
                 <div class="flex justify-end">
