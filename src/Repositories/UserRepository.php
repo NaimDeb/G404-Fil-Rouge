@@ -1,14 +1,12 @@
 <?php
 
 
-final class UserRepository
+class UserRepository extends AbstractRepository
 {
-
-    private PDO $db;
 
     public function __construct()
     {
-        $this->db = Database::getInstance();
+        parent::__construct();
     }
 
     /**
@@ -71,4 +69,22 @@ final class UserRepository
 
         return $user !== false;
     }
+
+
+    /**
+     * Fetch user by mail OR username
+     */
+    public function fetchUserByMailOrUsername(string $input): array
+    {
+        $sql = "SELECT * FROM user WHERE user_mail = :input OR username = :input";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':input', $input);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+
+
 }

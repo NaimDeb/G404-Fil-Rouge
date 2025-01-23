@@ -1,7 +1,6 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/BookMarket/globals.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/BookMarket/utils/connectDB.php';
+require_once "../utils/autoloader.php";
 
 // Isset et sanitization
 
@@ -16,13 +15,9 @@ if (!isset($_POST["mailOrUsername"]) || empty($_POST["mailOrUsername"]) || !isse
 
 $firstInput = htmlspecialchars(trim($_POST["mailOrUsername"]));
 
-$sql = "SELECT * FROM user WHERE user_mail = :input OR username = :input";
+$userRepo = new UserRepository;
 
-$stmt = $pdo->prepare($sql);
-
-$stmt->execute(['input' => $firstInput]);
-
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = $userRepo->fetchUserByMailOrUsername($firstInput);
 
 if (!$user) {
     header("location: ../public/pages/login.php?error=1");
@@ -40,11 +35,6 @@ if (!password_verify($_POST["password"], $user["user_password"])) {
 
 session_start();
 
-$_SESSION["user"] = [
-    "id" => $user["id"],
-    "username" => $user["username"],
-    "role" => $user["role"],
-    "image" => $user["id_image"]
-];
+$_SESSION["user"] = $user;
 
 header("location: ../index.php");
