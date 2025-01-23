@@ -26,6 +26,38 @@ if ($_SESSION["user"]["role"] == "professional") {
     $company_details = null;
 }
 
+
+if (!isset($_SESSION["user"])) {
+    header("location: ./home.php");
+    die();
+}
+
+
+
+
+$username = $user->getUserName();
+$user_image = $user->getImg_url();
+$user_desc = $user->getProfile_description();
+$user_role = $user->getRole();
+
+
+// Si la description est null, on affiche un message par défaut
+if ($user_desc == null) {
+    $user_desc = "Complétez votre profil avec une petite description !";
+};
+
+$isProfessional = false;
+
+// Si l'utilisateur est un professionnel, on récupère les données.
+if ($user instanceof Professional) {
+    $company_name = $user_professional->getCompany_name();
+    $company_address = $user_professional->getCompany_address();
+    $company_phone = $user_professional->getCompany_phone();
+    $isProfessional = true;
+}
+
+
+
 ?>
 
 <main class="bg-primary-beige">

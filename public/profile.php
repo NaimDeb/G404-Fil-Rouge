@@ -3,17 +3,29 @@ require_once "./components/htmlstart.php";
 require_once "./components/header.php";
 
 
-$sql = "SELECT profile_desc FROM user WHERE id = :id";
+if (!isset($_SESSION["user"])) {
+    header("location: ./home.php");
+    die();
+}
 
-$stmt = $pdo->prepare($sql);
-$stmt->execute(['id' => $_SESSION["user"]["id"]]);
 
 
-$user_desc = $stmt->fetch()["profile_desc"];
 
+$username = $user->getUserName();
+$user_image = $user->getImg_url();
+$user_desc = $user->getProfile_description();
+
+
+// Si la description est null, on affiche un message par défaut
 if ($user_desc == null) {
     $user_desc = "Complétez votre profil avec une petite description !";
 };
+
+$isProfessional = false;
+
+if ($user instanceof Professional) {
+    $isProfessional = true;
+}
 
 
 ?>
@@ -25,14 +37,14 @@ if ($user_desc == null) {
 
         <!-- Profile pic -->
 
-        <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
+        <img src="./assets/images/users/<?= $user_image ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
 
         <!-- Nom et description -->
         <div class="flex flex-col items-center gap-2 mb-4">
             <p class="text-2xl font-bold  text-neutral-off-white  font-merriweather"> 
                 <?php 
-                echo $_SESSION["user"]["username"]; 
-                if ($_SESSION["user"]["role"] == "professional") {
+                echo $username; 
+                if ($isProfessional === true) {
                     echo "<i title='Professionel' class='fas fa-check p-2'></i>";}
                 ?> </p>
             <div class="max-w-[80%]  bg-neutral-off-white text-primary-green rounded-lg rounded-tl-none font-open-sans">
@@ -55,7 +67,7 @@ if ($user_desc == null) {
 
     </section>
 
-<?php if ($_SESSION["user"]["role"] == "professional"): ?>
+<?php if ($isProfessional == true): ?>
     <!-- Section Mes annonces, seulement pour les pros -->
     <section class="py-8 px-8">
         <h2 class="font-merriweather text-2xl font-bold mb-4 md:text-3xl">Mes annonces</h2>

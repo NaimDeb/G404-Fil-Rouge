@@ -11,6 +11,9 @@
 //   protected 'role' => string 'user' (length=4)
 //   protected 'img_url' => string '677e9d9d33f5dtsuna.jpg' (length=22)
 if (isset($_SESSION["user"])){
+/**
+ * @var User $user
+ */
 $user = $_SESSION["user"];
 }
 

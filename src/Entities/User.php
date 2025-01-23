@@ -38,6 +38,32 @@ abstract class User {
         return $this->username;
     }
 
+
+
+    /**
+     * Get the value of mail
+     */ 
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * Get the value of profile_description
+     */ 
+    public function getProfile_description()
+    {
+        return $this->profile_description;
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
+    }
+
     /**
      * Get the value of img_url
      */ 
