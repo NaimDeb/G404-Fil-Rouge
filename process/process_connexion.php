@@ -1,6 +1,8 @@
 <?php
-
 require_once "../utils/autoloader.php";
+session_start();
+
+
 
 // Isset et sanitization
 
@@ -34,7 +36,7 @@ if (!password_verify($_POST["password"], $user->getPassword())) {
 
 // Connect to session
 
-session_start();
+
 
 $_SESSION["user"] = $user;
 

@@ -1,8 +1,5 @@
 <?php 
 
-require_once "../utils/autoloader.php";
-
-
 // C:\wamp64\www\Projets\BookMarket\public\components\header.php:5:
 // object(__PHP_Incomplete_Class)[1]
 //   public '__PHP_Incomplete_Class_Name' => string 'User' (length=4)
@@ -13,8 +10,10 @@ require_once "../utils/autoloader.php";
 //   protected 'profile_description' => string 'Salut la teamax' (length=15)
 //   protected 'role' => string 'user' (length=4)
 //   protected 'img_url' => string '677e9d9d33f5dtsuna.jpg' (length=22)
-
+if (isset($_SESSION["user"])){
 $user = $_SESSION["user"];
+}
+
 
 
 
@@ -38,8 +37,8 @@ $user = $_SESSION["user"];
             <!-- User sm et moins  -->
             <?php if (isset($_SESSION["user"])): ?>
                 <a href="./profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
-                    <span class="text-sm text-nowrap self-end ml-2"><? echo $user->getUsername() ?></span>
-                    <img src="./assets/images/users/<? echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
+                    <span class="text-sm text-nowrap self-end ml-2"><?php echo $user->getUsername() ?></span>
+                    <img src="./assets/images/users/<?php echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
                 </a>
             <?php else: ?>
                 <a href="./login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
@@ -81,8 +80,8 @@ $user = $_SESSION["user"];
         <!-- User (md+) -->
         <?php if (isset($_SESSION["user"])): ?>
             <a href="./profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
-                <span class="text-sm text-nowrap self-end ml-2"><? echo $user->getUsername() ?></span>
-                <img src="./assets/images/users/<? echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
+                <span class="text-sm text-nowrap self-end ml-2"><?php echo $user->getUsername() ?></span>
+                <img src="./assets/images/users/<?php echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
             </a>
         <?php else: ?>
             <a href="./login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
