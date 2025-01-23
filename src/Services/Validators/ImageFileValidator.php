@@ -14,12 +14,10 @@ class ImageFileValidator implements ValidationContract
         }
 
         if(!getimagesize($value['tmp_name'])){
-            var_dump("image size bouuuu");
             return false;
         }
 
         if(!str_contains($value['type'], "image")){
-            var_dump("contains not");
             return false;
         }
 

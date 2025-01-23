@@ -76,7 +76,7 @@ class UserRepository extends AbstractRepository
      */
     public function fetchUserByMailOrUsername(string $input): ?User
     {
-        $sql = "SELECT * FROM user JOIN image ON  user.id_image = image.id WHERE user_mail = :input OR username = :input";
+        $sql = "SELECT * FROM user JOIN image ON  user.id_image = image.id  JOIN user_details ON user.id = user_details.id_user WHERE user_mail = :input OR username = :input";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':input', $input);
@@ -87,7 +87,6 @@ class UserRepository extends AbstractRepository
         if (count($data) === 0) {
             return null;
         }
-
 
         if ($data["role"] === "professional") {
 
@@ -105,7 +104,6 @@ class UserRepository extends AbstractRepository
         return UserMapper::mapToObject($data);
 
     }
-
 
 
 }

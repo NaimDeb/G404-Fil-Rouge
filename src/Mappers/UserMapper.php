@@ -7,7 +7,7 @@ class UserMapper
     {
 
         if (isset($data['company_id'])) {
-            return new Professional(
+            $user = new Professional(
                 $data['id'],
                 $data['username'],
                 $data['user_password'],
@@ -21,7 +21,7 @@ class UserMapper
                 $data['company_phone']
             );
         } else {
-            return new Client(
+            $user = new Client(
                 $data['id'],
                 $data['username'],
                 $data['user_password'],
@@ -31,5 +31,13 @@ class UserMapper
                 $data['img_path']
             );
         }
+
+        $user->setAddress($data['address']);
+        $user->setPhone($data['phone']);
+        $user->setCountry($data['country']);
+        $user->setFirstName($data['firstName']);
+        $user->setLastName($data['lastName']);
+
+        return $user;
     }
 }

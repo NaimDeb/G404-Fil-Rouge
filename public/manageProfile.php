@@ -8,8 +8,6 @@ if (!isset($_SESSION["user"])) {
     die();
 }
 
-var_dump($_SESSION["user"]);
-
 $username = $user->getUserName();
 $user_image = $user->getImg_url();
 $user_desc = $user->getProfile_description();
