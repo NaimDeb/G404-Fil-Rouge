@@ -85,7 +85,7 @@ if ($user->getProfessionalDetails() != null) {
                 <p id="profile_desc" class="font-light py-2 px-4 text-sm"><?= $user_desc ?></p>
 
                 <!-- Form to change profile description, hidden by default -->
-                <form id="changeDescForm" method="POST" action=../process/process_changeProfileDesc.php" class="hidden">
+                <form id="changeDescForm" method="POST" action="../process/process_changeProfileDesc.php" class="hidden">
                     <input type="text" name="profile_desc" id="profile_desc_input" class="font-light py-2 px-4 text-sm w-full" value="<?= $user_desc ?>">
                     <button type="submit" class="bg-primary-green text-neutral-off-white rounded-full p-2 text-sm m-auto">
                         <i class="fas fa-check"></i>

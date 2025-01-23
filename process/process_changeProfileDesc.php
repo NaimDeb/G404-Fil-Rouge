@@ -1,9 +1,9 @@
 <?php
-session_start();
 require_once "../utils/autoloader.php";
+session_start();
+require_once "./process_sanitization.php";
 
 
-$userRepo = new UserRepository;
 
 // Vérification POST et si user existe
 if (!isset($_SESSION["user"]) || !isset($_POST)) {
@@ -20,18 +20,19 @@ issetFields("manageProfile", $user_details);
 
 $sanitizedData = sanitizeData($_POST["profile_desc"]);
 
+$userRepo = new UserRepository;
 
-$sql = "UPDATE user SET profile_desc = :profile_desc WHERE id = :id";
+$userRepo->updateProfileDescription(
+    $sanitizedData[0],
+    $_SESSION["user"]->getId()
+);
 
-$stmt = $pdo->prepare($sql);
 
-$stmt->execute([
-    ':profile_desc' => $sanitizedData[0],
-    ':id' => $_SESSION["user"]["id"]
+// Update session
 
-]);
+$_SESSION["user"]->setProfile_description($sanitizedData[0]);
 
-header("location: ../public/profile.php");
+header("location: ../public/manageprofile.php");
 
 
 

@@ -142,6 +142,18 @@ class User {
 
         return $this;
     }
+
+    /**
+     * Set the value of profile_description
+     *
+     * @return  self
+     */ 
+    public function setProfile_description($profile_description)
+    {
+        $this->profile_description = $profile_description;
+
+        return $this;
+    }
 }
 
 

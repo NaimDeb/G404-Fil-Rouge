@@ -198,5 +198,16 @@ class UserRepository extends AbstractRepository
     }
 
 
+    public function updateProfileDescription(string $desc, int $userId)
+    {
+        $sql = "UPDATE user SET profile_desc = :desc WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':desc', $desc);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+    }
+
+
 
 }
