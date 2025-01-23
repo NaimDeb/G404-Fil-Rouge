@@ -129,6 +129,21 @@ class UserRepository extends AbstractRepository
         } 
 
 
-    
 
+    public function updateUserDetails(array $userData, int $userId)
+    {
+        $sql = "UPDATE user_details SET firstName = :firstName, lastName = :lastName, address = :address, phone = :phone, country = :country WHERE id_user = :id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':firstName' => $userData[0],
+            ':lastName' => $userData[1],
+            ':address' => $userData[2],
+            ':phone' => $userData[3],
+            ':country' => $userData[4],
+            ':id' => $userId
+        ]);
     }
+
+}

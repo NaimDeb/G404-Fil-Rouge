@@ -9,7 +9,6 @@ $user = $_SESSION["user"];
 
 
 
-
 ?>
 
 <header class="bg-primary-green w-full h-[11vh] md:h-fit flex flex-col py-4 px-4 md:px-8">

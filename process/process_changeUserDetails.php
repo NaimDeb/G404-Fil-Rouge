@@ -1,8 +1,7 @@
 <?php
-session_start();
-require_once "../utils/connectDB.php";
+require_once "../utils/autoloader.php";
 require_once "./process_sanitization.php";
-
+session_start();
 
 $user_details = [ "firstName", "lastName", "address", "phone", "country"];
 
@@ -14,22 +13,20 @@ $sanitizedData = sanitizeData($_POST["firstName"], $_POST["lastName"], $_POST["a
 // Vérifier num téléphone
 
 if (!preg_match("/^[0-9]*$/", $_POST["phone"])) {
-    header("location: ../public/pages/manageprofile.php?error=invalidphone");
+    header("location: ../public/manageprofile.php?error=invalidphone");
     die();
 }
 
-$sql = "UPDATE user_details SET firstName = :firstName, lastName = :lastName, address = :address, phone = :phone, country = :country WHERE id_user = :id";
+$userRepo = new UserRepository;
 
-$stmt = $pdo->prepare($sql);
+$userRepo->updateUserDetails($sanitizedData, $_SESSION["user"]->getId());
 
-$stmt->execute([
-    ':firstName' => $sanitizedData[0],
-    ':lastName' => $sanitizedData[1],
-    ':address' => $sanitizedData[2],
-    ':phone' => $sanitizedData[3],
-    ':country' => $sanitizedData[4],
-    ':id' => $_SESSION["user"]["id"]
-]);
+$_SESSION["user"]->getUserDetails()->setFirstName($sanitizedData[0]);
+$_SESSION["user"]->getUserDetails()->setLastName($sanitizedData[1]);
+$_SESSION["user"]->getUserDetails()->setAddress($sanitizedData[2]);
+$_SESSION["user"]->getUserDetails()->setPhone($sanitizedData[3]);
+$_SESSION["user"]->getUserDetails()->setCountry($sanitizedData[4]);
 
-header("location: ../public/pages/profile.php");
+
+header("location: ../public/manageprofile.php");
 
