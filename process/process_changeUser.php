@@ -1,7 +1,7 @@
 <?php
-session_start();
-require_once "../utils/connectDB.php";
+require_once "../utils/autoloader.php";
 require_once "./process_sanitization.php";
+session_start();
 
 $user_details = ["user_mail", "username"];
 
@@ -31,46 +31,40 @@ if (!filter_var($_POST["user_mail"], FILTER_VALIDATE_EMAIL)) {
 
 // Si veut changer le mdp, vérifier si l'ancien mdp est correct
 
-if ($isUserChangePassword) {
-    $sql = "SELECT user_password FROM user WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $_SESSION["user"]["id"]]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+$userRepo = new UserRepository;
 
-    // if old password is wrong
-    if (!password_verify($sanitizedData[2], $user["user_password"])) {
-        header("location: ../public/pages/manageprofile.php?error=wrongpassword");
+if ($isUserChangePassword) {
+
+    if ($userRepo->checkUserPassword($_SESSION["user"]->getId(), $sanitizedData[2]) == false) {
+
+        header("location: ../public/manageprofile.php?error=wrongpassword");
         die();
+
     }
+
     // If new and confirm dont match
     if ($sanitizedData[3] !== $sanitizedData[4]) {
         header("location: ../public/pages/manageprofile.php?error=passwordsdontmatch");
         die();
     }
+
+    $hashedPassword = password_hash($sanitizedData[3], PASSWORD_DEFAULT);
+
+    $userRepo->updatePassword($_SESSION["user"]->getId(), $hashedPassword);
+
 }
 
-// change sql query depending on if user wants to change password
-if ($isUserChangePassword) {
-    $sql = "UPDATE user SET user_mail = :user_mail, username = :username, user_password = :user_password WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':user_mail' => $sanitizedData[0],
-        ':username' => $sanitizedData[1],
-        ':user_password' => password_hash($sanitizedData[3], PASSWORD_DEFAULT),
-        ':id' => $_SESSION["user"]["id"]
-    ]);
-} else {
-    $sql = "UPDATE user SET user_mail = :user_mail, username = :username WHERE id = :id";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':user_mail' => $sanitizedData[0],
-        ':username' => $sanitizedData[1],
-        ':id' => $_SESSION["user"]["id"]
-    ]);
-}
+
+$userRepo->updateUser($sanitizedData, $_SESSION["user"]->getId());
 
 // Update Session
 
-$_SESSION["user"]["username"] = $sanitizedData[1];
+$_SESSION["user"]->setMail($sanitizedData[0]);
+$_SESSION["user"]->setUsername($sanitizedData[1]);
 
-header("location: ../public/pages/profile.php?success=1");
+if ($isUserChangePassword) {
+    header("location: ../public/manageprofile.php?success=passwordChanged");
+    die();
+}
+
+header("location: ../public/manageprofile.php?success=dataChanged");

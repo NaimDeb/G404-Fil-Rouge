@@ -7,7 +7,7 @@ class ProfessionalDataMapper
     {
 
         $professionalDetails = new ProfessionalDetails(
-            $data['company_id'],
+            $data['id'],
             $data['company_name'],
             $data['company_address'],
             $data['company_phone']

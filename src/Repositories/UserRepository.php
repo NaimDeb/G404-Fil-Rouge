@@ -146,4 +146,43 @@ class UserRepository extends AbstractRepository
         ]);
     }
 
+
+    public function checkUserPassword(int $userId, string $password): bool
+    {
+        $sql = "SELECT user_password FROM user WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return password_verify($password, $user['user_password']);
+
+    }
+
+
+
+    public function updatePassword(int $userId, string $hashedPassword)
+    {
+        $sql = "UPDATE user SET user_password = :password WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+    }
+
+
+    public function updateUser(array $userData, int $userId)
+    {
+        $sql = "UPDATE user SET username = :username, user_mail = :user_mail WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':username', $userData[1]);
+        $stmt->bindParam(':user_mail', $userData[0]);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+    }
+
 }
