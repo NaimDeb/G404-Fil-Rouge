@@ -209,5 +209,24 @@ class UserRepository extends AbstractRepository
     }
 
 
+    public function updateProfilePicture(int $userId, string $fileName)
+    {
+        $sql = "INSERT INTO image (img_path) VALUES (:image_path)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':image_path' => $fileName
+        ]);
+
+        $idImage = $this->db->lastInsertId();
+
+        $sql = "UPDATE user SET id_image = :id_image WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':id_image' => $idImage,
+            ':id' => $userId
+        ]);
+    }
+
+
 
 }
