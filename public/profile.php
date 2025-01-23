@@ -57,7 +57,7 @@ if ($user instanceof Professional) {
         <div class="flex justify-between m-auto  font-open-sans font-semibold">
 
             <a href="./manageprofile.php" class="bg-neutral-off-white text-neutral-off-black py-3 px-4 rounded-md m-4 hover:scale-105 hover:brightness-125">Editer mon profil</a>
-            <a href="../../process/process_deconnexion.php" class="text-neutral-off-white bg-red-600 py-3 px-4 rounded-md m-4 hover:scale-105 hover:brightness-125">Se déconnecter</a>
+            <a href="../process/process_deconnexion.php" class="text-neutral-off-white bg-red-600 py-3 px-4 rounded-md m-4 hover:scale-105 hover:brightness-125">Se déconnecter</a>
 
         </div>
 
