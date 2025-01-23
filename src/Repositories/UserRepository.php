@@ -70,7 +70,6 @@ class UserRepository extends AbstractRepository
         return $user !== false;
     }
 
-
     /**
      * Fetch user by mail OR username and returns a instanciated User or Professional object
      */
@@ -130,7 +129,8 @@ class UserRepository extends AbstractRepository
 
 
 
-    public function updateUserDetails(array $userData, int $userId)
+    
+        public function updateUserDetails(array $userData, int $userId)
     {
         $sql = "UPDATE user_details SET firstName = :firstName, lastName = :lastName, address = :address, phone = :phone, country = :country WHERE id_user = :id";
 
@@ -161,8 +161,6 @@ class UserRepository extends AbstractRepository
 
     }
 
-
-
     public function updatePassword(int $userId, string $hashedPassword)
     {
         $sql = "UPDATE user SET user_password = :password WHERE id = :id";
@@ -172,7 +170,6 @@ class UserRepository extends AbstractRepository
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
     }
-
 
     public function updateUser(array $userData, int $userId)
     {
@@ -197,7 +194,6 @@ class UserRepository extends AbstractRepository
         $stmt->execute();
     }
 
-
     public function updateProfileDescription(string $desc, int $userId)
     {
         $sql = "UPDATE user SET profile_desc = :desc WHERE id = :id";
@@ -207,7 +203,6 @@ class UserRepository extends AbstractRepository
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
     }
-
 
     public function updateProfilePicture(int $userId, string $fileName)
     {
