@@ -1,7 +1,10 @@
 <?php
+require_once "../utils/autoloader.php";
 session_start();
-require_once "../utils/connectDB.php";
 require_once "./process_sanitization.php";
+
+
+$userRepo = new UserRepository;
 
 $professional_details = ["company_address", "company_name", "company_phone"];
 
@@ -16,15 +19,15 @@ if (!preg_match("/^[0-9]*$/", $_POST["company_phone"])) {
     die();
 }
 
-$sql = "UPDATE professional_details SET company_address = :company_address, company_name = :company_name, company_phone = :company_phone WHERE id_user = :id";
+$userRepo->updateProfessionalDetails(
+    $sanitizedData,
+    $_SESSION["user"]->getId()
+);
 
-$stmt = $pdo->prepare($sql);
+// Update session
 
-$stmt->execute([
-    ':company_address' => $sanitizedData[0],
-    ':company_name' => $sanitizedData[1],
-    ':company_phone' => $sanitizedData[2],
-    ':id' => $_SESSION["user"]["id"]
-]);
+$_SESSION["user"]->getProfessionalDetails()->setCompany_address($sanitizedData[0]);
+$_SESSION["user"]->getProfessionalDetails()->setCompany_name($sanitizedData[1]);
+$_SESSION["user"]->getProfessionalDetails()->setCompany_phone($sanitizedData[2]);
 
-header("location: ../public/profile.php");
+header("location: ../public/manageprofile.php?success=professionalDetailsUpdated");
