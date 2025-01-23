@@ -72,17 +72,38 @@ class UserRepository extends AbstractRepository
 
 
     /**
-     * Fetch user by mail OR username
+     * Fetch user by mail OR username and returns a instanciated User or Professional object
      */
-    public function fetchUserByMailOrUsername(string $input): array
+    public function fetchUserByMailOrUsername(string $input): ?User
     {
-        $sql = "SELECT * FROM user WHERE user_mail = :input OR username = :input";
+        $sql = "SELECT * FROM user JOIN image ON  user.id_image = image.id WHERE user_mail = :input OR username = :input";
 
         $stmt = $this->db->prepare($sql);
         $stmt->bindParam(':input', $input);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (count($data) === 0) {
+            return null;
+        }
+
+
+        if ($data["role"] === "professional") {
+
+            $sqlPro = "SELECT * FROM professional_details WHERE id_user = :id";
+
+            $stmt = $this->db->prepare($sqlPro);
+            $stmt->bindParam(':id', $data['id']);
+            $stmt->execute();
+
+            $proData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            $data = array_merge($data, $proData);
+        }
+
+        return UserMapper::mapToObject($data);
+
     }
 
 

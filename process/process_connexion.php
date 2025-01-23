@@ -12,12 +12,13 @@ if (!isset($_POST["mailOrUsername"]) || empty($_POST["mailOrUsername"]) || !isse
 
 // Check if user exists
 
-
 $firstInput = htmlspecialchars(trim($_POST["mailOrUsername"]));
+
 
 $userRepo = new UserRepository;
 
 $user = $userRepo->fetchUserByMailOrUsername($firstInput);
+
 
 if (!$user) {
     header("location: ../public/pages/login.php?error=1");
@@ -26,7 +27,7 @@ if (!$user) {
 
 // Check password
 
-if (!password_verify($_POST["password"], $user["user_password"])) {
+if (!password_verify($_POST["password"], $user->getPassword())) {
     header("location: ../public/pages/login.php?error=1");
     die();
 }

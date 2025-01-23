@@ -3,18 +3,18 @@
 require_once "../utils/autoloader.php";
 
 
-if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
+// C:\wamp64\www\Projets\BookMarket\public\components\header.php:5:
+// object(__PHP_Incomplete_Class)[1]
+//   public '__PHP_Incomplete_Class_Name' => string 'User' (length=4)
+//   protected 'id' => int 14
+//   protected 'username' => string 'Momo42' (length=6)
+//   protected 'password' => string '$2y$10$GMGWODjlPLkOOPCATEcKseeFWN4/.UO7OAM45xxIIf8GsjxMqOZrq' (length=60)
+//   protected 'mail' => string 'mohand@gmail.com' (length=16)
+//   protected 'profile_description' => string 'Salut la teamax' (length=15)
+//   protected 'role' => string 'user' (length=4)
+//   protected 'img_url' => string '677e9d9d33f5dtsuna.jpg' (length=22)
 
-    $sql = "SELECT image.img_path FROM image JOIN user ON image.id = user.id_image WHERE user.id = :id";
-    
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute(['id' => $_SESSION["user"]["id"]]);
-
-    $temppath = $stmt->fetch()["img_path"];
-
-    $_SESSION["user"]["imgPath"] = $temppath;
-
-};
+$user = $_SESSION["user"];
 
 
 
@@ -31,15 +31,15 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
             </a>
 
             <!-- Logo  -->
-            <a href="./index.php" class="w-[80%] md:order-1 mx-auto md:px-2">
+            <a href="./home.php" class="w-[80%] md:order-1 mx-auto md:px-2">
                 <img src="./assets/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-12 mx-auto sm:mx-0">
             </a>
 
             <!-- User sm et moins  -->
             <?php if (isset($_SESSION["user"])): ?>
                 <a href="./profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
-                    <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
-                    <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
+                    <span class="text-sm text-nowrap self-end ml-2"><? echo $user->getUsername() ?></span>
+                    <img src="./assets/images/users/<? echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
                 </a>
             <?php else: ?>
                 <a href="./login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
@@ -81,8 +81,8 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
         <!-- User (md+) -->
         <?php if (isset($_SESSION["user"])): ?>
             <a href="./profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
-                <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
-                <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
+                <span class="text-sm text-nowrap self-end ml-2"><? echo $user->getUsername() ?></span>
+                <img src="./assets/images/users/<? echo $user->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
             </a>
         <?php else: ?>
             <a href="./login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
@@ -90,6 +90,9 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
                 <i class="fas fa-user"></i>
             </a>
         <?php endif; ?>
+
+        
+
 
     </div>
 

@@ -5,7 +5,6 @@ require_once "./components/header.php";
 ?>
 
 <main>
-
     <!-- Hero -->
     <section class="bg-[url(../images/heromobile.png)] lg:bg-[url(../images/heropc.png)] h-[35vh] relative bg-no-repeat bg-cover " alt="Image de couverture du site">
 
