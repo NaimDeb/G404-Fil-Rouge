@@ -24,7 +24,7 @@ $professionalFields = [
 foreach ($formFields as $form) {
 
     if (!isset($_POST[$form]) || empty($_POST[$form])) {
-        header("location: ../public/pages/inscription.php?error=emptyfield&erroron={$form}");
+        header("location: ../public/inscription.php?error=emptyfield&erroron={$form}");
         die();
     }
     

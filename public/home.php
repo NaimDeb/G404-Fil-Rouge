@@ -12,7 +12,7 @@ require_once "./components/header.php";
             <h1 class="text-3xl font-bold text-neutral-off-white font-merriweather drop-shadow-2xl">Revendez vos livres,<br> partagez vos histoire !</h1>
 
             <button class="bg-primary-green rounded-md max-sm:w-[75%] sm:w-2/5 md:w-64 md:ml-auto text-neutral-off-white text-xl py-2 px-4 text-nowrap font-open-sans font-semibold tracking-wide">
-                <a href="./public/pages/inscription.php">
+                <a href="./public/inscription.php">
                     Vendez maintenant !
                 </a>
             </button>

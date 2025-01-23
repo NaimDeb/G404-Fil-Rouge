@@ -25,7 +25,7 @@ if ($isUserChangePassword) {
 // Vérifier mail
 
 if (!filter_var($_POST["user_mail"], FILTER_VALIDATE_EMAIL)) {
-    header("location: ../public/pages/manageprofile.php?error=invalidmail");
+    header("location: ../public/manageprofile.php?error=invalidmail");
     die();
 }
 
@@ -44,7 +44,7 @@ if ($isUserChangePassword) {
 
     // If new and confirm dont match
     if ($sanitizedData[3] !== $sanitizedData[4]) {
-        header("location: ../public/pages/manageprofile.php?error=passwordsdontmatch");
+        header("location: ../public/manageprofile.php?error=passwordsdontmatch");
         die();
     }
 

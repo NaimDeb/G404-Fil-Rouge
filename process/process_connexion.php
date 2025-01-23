@@ -7,7 +7,7 @@ session_start();
 // Isset et sanitization
 
 if (!isset($_POST["mailOrUsername"]) || empty($_POST["mailOrUsername"]) || !isset($_POST["password"]) || empty($_POST["password"])) {
-    header("location: ../public/pages/login.php?error=emptyfield");
+    header("location: ../public/login.php?error=emptyfield");
     die();
 }
 
@@ -23,14 +23,14 @@ $user = $userRepo->fetchUserByMailOrUsername($firstInput);
 
 
 if (!$user) {
-    header("location: ../public/pages/login.php?error=1");
+    header("location: ../public/login.php?error=1");
     die();
 }
 
 // Check password
 
 if (!password_verify($_POST["password"], $user->getPassword())) {
-    header("location: ../public/pages/login.php?error=1");
+    header("location: ../public/login.php?error=1");
     die();
 }
 

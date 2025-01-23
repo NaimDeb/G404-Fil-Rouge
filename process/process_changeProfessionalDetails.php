@@ -12,7 +12,7 @@ $sanitizedData = sanitizeData($_POST["company_address"], $_POST["company_name"],
 // Vérifier num téléphone
 
 if (!preg_match("/^[0-9]*$/", $_POST["company_phone"])) {
-    header("location: ../public/pages/manageprofile.php?error=invalidphone");
+    header("location: ../public/manageprofile.php?error=invalidphone");
     die();
 }
 
@@ -27,4 +27,4 @@ $stmt->execute([
     ':id' => $_SESSION["user"]["id"]
 ]);
 
-header("location: ../public/pages/profile.php");
+header("location: ../public/profile.php");

@@ -31,7 +31,7 @@ $stmt->execute([
 
 ]);
 
-header("location: ../public/pages/profile.php");
+header("location: ../public/profile.php");
 
 
 
