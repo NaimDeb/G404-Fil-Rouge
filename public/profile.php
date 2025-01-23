@@ -1,6 +1,6 @@
 <?php
-require_once "../components/htmlstart.php";
-require_once "../components/header.php";
+require_once "./components/htmlstart.php";
+require_once "./components/header.php";
 
 
 $sql = "SELECT profile_desc FROM user WHERE id = :id";
@@ -73,7 +73,7 @@ if ($user_desc == null) {
             <div class="scroll flex gap-3 flex-nowrap overflow-x-auto snap-mandatory snap-x justify-between scrollbar-hide relative lg:h-|30vh] p-[1vh]">
                 <?php
                     for ($i=0; $i < 10; $i++) { 
-                        require "../components/testcard.php";
+                        require "./components/testcard.php";
                     }
                 ?>
             </div>
@@ -97,7 +97,7 @@ if ($user_desc == null) {
             <div class="scroll flex gap-3 flex-nowrap overflow-x-auto snap-mandatory snap-x justify-between scrollbar-hide relative lg:h-|30vh] p-[1vh]">
                 <?php
                     for ($i=0; $i < 10; $i++) { 
-                        require "../components/testcard.php";
+                        require "./components/testcard.php";
                     }
                 ?>
             </div>
@@ -110,7 +110,7 @@ if ($user_desc == null) {
 
 
 <?php
-require_once "../components/footer.php";
+require_once "./components/footer.php";
 ?>
 
 <!-- TODO : only seems to work once -->

@@ -1,13 +1,13 @@
 <?php
 
-require_once "./public/components/htmlstart.php";
-require_once "./public/components/header.php";
+require_once "./components/htmlstart.php";
+require_once "./components/header.php";
 ?>
 
 <main>
 
     <!-- Hero -->
-    <section class="bg-[url(../src/images/heromobile.png)] lg:bg-[url(../src/images/heropc.png)] h-[35vh] relative bg-no-repeat bg-cover " alt="Image de couverture du site">
+    <section class="bg-[url(../images/heromobile.png)] lg:bg-[url(../images/heropc.png)] h-[35vh] relative bg-no-repeat bg-cover " alt="Image de couverture du site">
 
         <div class="h-full p-8 flex flex-col justify-around backdrop-blur-sm w-full lg:p-16">
             <h1 class="text-3xl font-bold text-neutral-off-white font-merriweather drop-shadow-2xl">Revendez vos livres,<br> partagez vos histoire !</h1>
@@ -35,7 +35,7 @@ require_once "./public/components/header.php";
             <article class="basis-[45%] md:basis-[30%] lg:basis-[20%] ">
                 <a href="./pages/article.php?id=1" class="group w-21">
                     <div class="max-w-[40vw] border-gray-400 border-[1px]  items-center">
-                        <img src="./assets/src/images/bookrandom.png" alt="" class="m-auto object-scale-down">
+                        <img src="./assets/images/bookrandom.png" alt="" class="m-auto object-scale-down">
                     </div>
 
                     <div class="flex flex-col">
@@ -55,7 +55,7 @@ require_once "./public/components/header.php";
             <article class="basis-[45%] md:basis-[30%] lg:basis-[20%] ">
                 <a href="./pages/article.php?id=1" class="group w-21">
                     <div class="max-w-[40vw] border-gray-400 border-[1px]  items-center">
-                        <img src="./assets/src/images/bookrandom.png" alt="" class="m-auto object-scale-down">
+                        <img src="./assets/images/bookrandom.png" alt="" class="m-auto object-scale-down">
                     </div>
 
                     <div class="flex flex-col">
@@ -75,7 +75,7 @@ require_once "./public/components/header.php";
             <article class="basis-[45%] md:basis-[30%] lg:basis-[20%] ">
                 <a href="./pages/article.php?id=1" class="group w-21">
                     <div class="max-w-[40vw] border-gray-400 border-[1px]  items-center">
-                        <img src="./assets/src/images/bookrandom.png" alt="" class="m-auto object-scale-down">
+                        <img src="./assets/images/bookrandom.png" alt="" class="m-auto object-scale-down">
                     </div>
 
                     <div class="flex flex-col">
@@ -95,7 +95,7 @@ require_once "./public/components/header.php";
             <article class="basis-[45%] md:basis-[30%] lg:basis-[20%] ">
                 <a href="./pages/article.php?id=1" class="group w-21">
                     <div class="max-w-[40vw] border-gray-400 border-[1px]  items-center">
-                        <img src="./assets/src/images/bookrandom.png" alt="" class="m-auto object-scale-down">
+                        <img src="./assets/images/bookrandom.png" alt="" class="m-auto object-scale-down">
                     </div>
 
                     <div class="flex flex-col">
@@ -123,7 +123,7 @@ require_once "./public/components/header.php";
 
 
 <?php
-require_once "./public/components/footer.php";
+require_once "./components/footer.php";
 ?>
 
 </body>

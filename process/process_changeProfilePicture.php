@@ -1,8 +1,9 @@
 <?php
 session_start();
-require $_SERVER['DOCUMENT_ROOT']  . '/BookMarket/globals.php';
-require $_SERVER['DOCUMENT_ROOT']  . '/BookMarket/utils/connectDB.php';
-require $_SERVER['DOCUMENT_ROOT']  . '/BookMarket/process/process_updateSession.php';
+
+
+require '../utils/connectDB.php';
+require './process_updateSession.php';
 
 
 $profile_picture = $_FILES["profile_picture"];
@@ -17,7 +18,7 @@ if ($profile_picture["error"] !== UPLOAD_ERR_OK) {
 }
     
 
-$uploadDir = "/BookMarket/assets/src/images/users/";
+$uploadDir = "/BookMarket/assets/images/users/";
 $fileName = uniqid() . basename($profile_picture["name"]);
 
 

@@ -1,15 +1,15 @@
 <?php
-require_once "../components/htmlstart.php";
-require_once "../components/header.php";
+require_once "./components/htmlstart.php";
+require_once "./components/header.php";
 ?>
 
-<main class="flex items-center justify-center bg-fit bg-cover bg-[url(../../assets/src/images/heropc.png)]">
+<main class="flex items-center justify-center bg-fit bg-cover bg-[url(../../assets/images/heropc.png)]">
 
 
 
     <!-- Formulaire d'inscription  -->
     <div class="w-[35%] min-h-[90vh] bg-primary-beige flex items-center justify-center px-10 py-8  shadow-lg">
-        <form action="../../process/process_inscription.php" method="POST" class="w-full space-y-6">
+        <form action="../process/process_inscription.php" method="POST" class="w-full space-y-6">
 
             <?php
                 if (isset($_GET['error'])) {
@@ -157,5 +157,5 @@ require_once "../components/header.php";
 
 
 <?php
-require_once "../components/footer.php";
+require_once "./components/footer.php";
 ?>

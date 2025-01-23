@@ -1,6 +1,7 @@
 <?php 
-require_once($_SERVER['DOCUMENT_ROOT'] . "/BookMarket/utils/connectDB.php");
-session_start();
+
+require_once "../utils/autoloader.php";
+
 
 if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
 
@@ -30,18 +31,18 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
             </a>
 
             <!-- Logo  -->
-            <a href="<?= $root_path ?>/index.php" class="w-[80%] md:order-1 mx-auto md:px-2">
-                <img src="<?= $root_path ?>/assets/src/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-12 mx-auto sm:mx-0">
+            <a href="./index.php" class="w-[80%] md:order-1 mx-auto md:px-2">
+                <img src="./assets/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-12 mx-auto sm:mx-0">
             </a>
 
             <!-- User sm et moins  -->
             <?php if (isset($_SESSION["user"])): ?>
-                <a href="<?= $root_path ?>/public/pages/profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
+                <a href="./profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
                     <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
                     <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
                 </a>
             <?php else: ?>
-                <a href="<?= $root_path ?>/public/pages/login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
+                <a href="./login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
                     <i class="fas fa-user"></i>
                 </a>
             <?php endif; ?>
@@ -79,12 +80,12 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
 
         <!-- User (md+) -->
         <?php if (isset($_SESSION["user"])): ?>
-            <a href="<?= $root_path ?>/public/pages/profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <a href="./profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
                 <span class="text-sm text-nowrap self-end ml-2"><?= $_SESSION["user"]["username"] ?></span>
                 <img src="<?= $_SESSION["user"]["imgPath"] ?>" alt="User Image" class="rounded-full h-8 w-8">
             </a>
         <?php else: ?>
-            <a href="<?= $root_path ?>/public/pages/login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <a href="./login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
                 <span class="text-sm text-nowrap self-end mr-2">Se connecter</span>
                 <i class="fas fa-user"></i>
             </a>
@@ -96,14 +97,14 @@ if (isset($_SESSION["user"]) && !isset($_SESSION["user"]["imgPath"])) {
     <nav class="hidden md:flex w-full justify-between items-center mt-4 font-merriweather">
         <!-- Liens principaux -->
         <div class="flex space-x-8 text-white font-bold basis-2/3 justify-between text-nowrap">
-            <a href="<?= $root_path ?>/public/pages/new.php" class="hover:underline">Nouveautés</a>
-            <a href="<?= $root_path ?>/public/pages/classics.php" class="hover:underline">Classiques incontournables</a>
-            <a href="<?= $root_path ?>/public/pages/cheap.php" class="hover:underline">Petits prix</a>
-            <a href="<?= $root_path ?>/public/pages/youth.php" class="hover:underline">Jeunesse</a>
+            <a href="./new.php" class="hover:underline">Nouveautés</a>
+            <a href="./classics.php" class="hover:underline">Classiques incontournables</a>
+            <a href="./cheap.php" class="hover:underline">Petits prix</a>
+            <a href="./youth.php" class="hover:underline">Jeunesse</a>
         </div>
 
         <!-- Bouton Vendre un livre -->
-        <a href="<?= $root_path ?>/public/pages/sell.php" class="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-primary-green transition">
+        <a href="./sell.php" class="bg-transparent border-2 border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-primary-green transition">
             Vendre un livre
         </a>
     </nav>

@@ -1,6 +1,6 @@
 <?php
-require_once "../components/htmlstart.php";
-require_once "../components/header.php";
+require_once "./components/htmlstart.php";
+require_once "./components/header.php";
 
 // Get every profile detail
 $sql = "SELECT * FROM user JOIN user_details ON user_details.id_user = user.id WHERE user.id = :id";

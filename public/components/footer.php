@@ -6,7 +6,7 @@
     
     <!-- Logo -->
     <a href="#" class="max-h-full md:w-auto">
-        <img src="<?= $root_path ?>/assets/src/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-full">
+        <img src="./assets/images/Logo.svg" alt="Logo Bookmarket" class="object-scale-down max-h-full">
     </a>
 
     <!-- Liens principaux -->

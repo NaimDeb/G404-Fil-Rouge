@@ -1,7 +1,7 @@
 <?php
 
-require_once "../components/htmlstart.php";
-require_once "../components/header.php";
+require_once "./components/htmlstart.php";
+require_once "./components/header.php";
 ?>
 
 <main>
@@ -9,7 +9,7 @@ require_once "../components/header.php";
 
 <div class="flex h-full w-full">
     <!-- Image de gauche -->
-    <div class="w-[65%] h-auto bg-fit bg-cover bg-[url(../../assets/src/images/heropc.png)]">
+    <div class="w-[65%] h-auto bg-fit bg-cover bg-[url(../../assets/images/heropc.png)]">
         <div class="backdrop-blur-sm w-full h-full"></div>
     </div>
 
@@ -18,7 +18,7 @@ require_once "../components/header.php";
 
 
 
-        <form action="../../process/process_connexion.php" method="POST" class="w-full space-y-4">
+        <form action="../process/process_connexion.php" method="POST" class="w-full space-y-4">
         <?php 
 
         if(isset($_GET['error'])) {
@@ -56,5 +56,5 @@ require_once "../components/header.php";
 
 
 <?php
-require_once "../components/footer.php";
+require_once "./components/footer.php";
 ?>
