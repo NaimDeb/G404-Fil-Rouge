@@ -11,8 +11,6 @@ if (!isset($_POST["mailOrUsername"]) || empty($_POST["mailOrUsername"]) || !isse
 }
 
 
-
-
 // Check if user exists
 
 
