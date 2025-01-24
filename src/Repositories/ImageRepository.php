@@ -29,5 +29,17 @@ class ImageRepository extends AbstractRepository{
         return ImageMapper::mapToObject($data);
     }
 
+    public function createImage(string $fileName){
+        $sql = "INSERT INTO image (img_path) VALUES (:image_path)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':image_path' => $fileName
+        ]);
+
+        return $this->db->lastInsertId();
+
+        
+    }
+
 
 }

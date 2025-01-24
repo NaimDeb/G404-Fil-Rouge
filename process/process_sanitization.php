@@ -12,13 +12,12 @@ function issetFields($page, $fields)
 }
 
 
-function sanitizeData(...$data)
+function sanitizeData($value)
 
 {
-    $sanitizedData = [];
-    foreach ($data as $value) {
-        $sanitizedData[] = htmlspecialchars(trim($value));
-    }
+
+    $sanitizedData = htmlspecialchars(trim($value));
+
     return $sanitizedData;
 }
 

@@ -2,6 +2,7 @@
 require_once "../utils/autoloader.php";
 session_start();
 
+$user = $_SESSION["user"];
 
 $profile_picture = $_FILES["profile_picture"];
 
@@ -28,9 +29,13 @@ if (!move_uploaded_file($profile_picture["tmp_name"], $uploadPath)) {
 
     $userRepo = new UserRepository;
 
-    $userRepo->updateProfilePicture($_SESSION["user"]->getId(), $fileName);
+    $imageRepo = new ImageRepository;
 
-    $_SESSION["user"]->getImage()->setImgPath($fileName);
+    $idImage = $imageRepo->createImage($fileName);
+
+    $newImage = $imageRepo->getImageById($idImage);
+
+    $user->setImage($newImage);
 
     echo ("Image mise à jour avec succès");
     // Refresh page
