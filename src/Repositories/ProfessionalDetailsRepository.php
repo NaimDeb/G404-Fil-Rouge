@@ -38,5 +38,18 @@ class ProfessionalDetailsRepository extends AbstractRepository
             ':company_phone' => $proData["company_phone"]
         ]);
     }
+
+
+    public function updateProfessionalDetails(array $data, int $userId){
+
+        $sql = "UPDATE professional_details SET company_name = :company_name, company_address = :company_address, company_phone = :company_phone WHERE id_user = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':company_name', $data["company_name"]);
+        $stmt->bindParam(':company_address', $data["company_address"]);
+        $stmt->bindParam(':company_phone', $data["company_phone"]);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+    }
 }
 ?>

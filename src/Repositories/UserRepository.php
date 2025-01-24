@@ -145,17 +145,7 @@ class UserRepository extends AbstractRepository
         $stmt->execute();
     }
 
-    public function updateProfessionalDetails(array $data, int $userId){
 
-        $sql = "UPDATE professional_details SET company_name = :company_name, company_address = :company_address, company_phone = :company_phone WHERE id_user = :id";
-
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':company_name', $data[0]);
-        $stmt->bindParam(':company_address', $data[1]);
-        $stmt->bindParam(':company_phone', $data[2]);
-        $stmt->bindParam(':id', $userId);
-        $stmt->execute();
-    }
 
     public function updateProfileDescription(string $desc, int $userId)
     {
