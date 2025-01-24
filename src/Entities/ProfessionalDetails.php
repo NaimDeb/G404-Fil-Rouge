@@ -9,6 +9,9 @@ class ProfessionalDetails{
     private string $company_address;
     private string $company_phone;
 
+
+    private User $user;
+
     public function __construct($company_id, $company_name, $company_address, $company_phone) {
         $this->company_id = $company_id;
         $this->company_name = $company_name;
@@ -93,6 +96,26 @@ class ProfessionalDetails{
     public function setCompany_phone($company_phone)
     {
         $this->company_phone = $company_phone;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of user
+     */ 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set the value of user
+     *
+     * @return  self
+     */ 
+    public function setUser($user)
+    {
+        $this->user = $user;
 
         return $this;
     }

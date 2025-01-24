@@ -2,6 +2,8 @@
 
 require_once "../utils/autoloader.php";
 
+$isProfessional = false;
+
 $formFields = [
     'firstName',        // Prénom
     'lastName',         // Nom
@@ -30,7 +32,7 @@ foreach ($formFields as $form) {
     
 }
 
-$isProfessional = false;
+
 // Vérifier si les champs professionnels sont remplis
 if (isset($_POST["isProfessional"]) && $_POST["isProfessional"] == "on"){
 
@@ -134,6 +136,8 @@ $hashedPassword = password_hash($user_password, PASSWORD_DEFAULT);
 $userData += [
     'user_password' => $hashedPassword
 ];
+
+
 
 
 $userRepo->createUser($userData, $isProfessional);

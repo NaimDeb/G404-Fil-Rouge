@@ -12,7 +12,6 @@ class UserDetailsMapper
             $data["country"],
             $data["firstName"],
             $data["lastName"],
-            $data["img_path"]
             );
             
             return $userDetails;

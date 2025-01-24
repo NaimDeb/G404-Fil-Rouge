@@ -9,8 +9,11 @@ class User {
     private string $profile_description;
     private string $role;
 
-    private UserDetails $userDetails;
-    private ?ProfessionalDetails $professionalDetails = null;
+    // A enlever
+    // private UserDetails $userDetails;
+    // private ?ProfessionalDetails $professionalDetails = null;
+
+    private Image $image;
 
     
 	
@@ -71,45 +74,6 @@ class User {
     }
 
 
-    /**
-     * Get the value of userDetails
-     */ 
-    public function getUserDetails()
-    {
-        return $this->userDetails;
-    }
-
-    /**
-     * Set the value of userDetails
-     *
-     * @return  self
-     */ 
-    public function setUserDetails($userDetails)
-    {
-        $this->userDetails = $userDetails;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of professionalDetails
-     */ 
-    public function getProfessionalDetails()
-    {
-        return $this->professionalDetails;
-    }
-
-    /**
-     * Set the value of professionalDetails
-     *
-     * @return  self
-     */ 
-    public function setProfessionalDetails($professionalDetails)
-    {
-        $this->professionalDetails = $professionalDetails;
-
-        return $this;
-    }
 
     /**
      * Get the value of id
@@ -153,6 +117,26 @@ class User {
         $this->profile_description = $profile_description;
 
         return $this;
+    }
+
+    /**
+     * Set the value of image
+     *
+     * @return  self
+     */ 
+    public function setImage($image)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of image
+     */ 
+    public function getImage()
+    {
+        return $this->image;
     }
 }
 

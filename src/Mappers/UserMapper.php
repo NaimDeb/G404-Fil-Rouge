@@ -3,7 +3,7 @@
 class UserMapper
 {
 
-    public static function mapToObject(array $data)
+    public static function mapToObject(array $data, Image $image = null): User
     {
 
 
@@ -15,6 +15,13 @@ class UserMapper
             $data['profile_desc'],
             $data['role'],
         );
+
+        if (!$image) {
+            $imageRepo = new ImageRepository();
+            $image = $imageRepo->getDefaultUserImage();
+        }
+
+        $user->setImage($image);
 
 
         return $user;

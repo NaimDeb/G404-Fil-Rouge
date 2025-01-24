@@ -8,17 +8,17 @@ class UserDetails{
     private string $country;
     private string $firstName;
     private string $lastName;
-    private string $img_url;
+
+    private User $user;
 
 
-    public function __construct(string $address, string $phone, string $country, string $firstName, string $lastName,string $img_url)	
+    public function __construct(string $address, string $phone, string $country, string $firstName, string $lastName)	
     {
         $this->address = $address;
         $this->phone = $phone;
         $this->country = $country;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
-        $this->img_url = $img_url;
     }
 
 
@@ -126,22 +126,23 @@ class UserDetails{
         return $this;
     }
 
+
     /**
-     * Get the value of img_url
+     * Get the value of user
      */ 
-    public function getImg_url()
+    public function getUser()
     {
-        return $this->img_url;
+        return $this->user;
     }
 
     /**
-     * Set the value of img_url
+     * Set the value of user
      *
      * @return  self
      */ 
-    public function setImg_url($img_url)
+    public function setUser($user)
     {
-        $this->img_url = $img_url;
+        $this->user = $user;
 
         return $this;
     }

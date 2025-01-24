@@ -10,9 +10,9 @@ class UserRepository extends AbstractRepository
     }
 
     /**
-     * Creates a new user in the database
+     * Creates a new user in the database, calls UserDetailsRepo and ProDetailsRepo to create the details too.
      */
-    public function createUser(array $userData, bool $isProfessional = false)
+    public function createUser(array $userData, bool $isProfessional = false): void
     {
         //Insert into DB
 
@@ -24,29 +24,19 @@ class UserRepository extends AbstractRepository
         $stmt->bindParam(':user_mail', $userData['user_mail']);
         $stmt->execute();
 
-        // Get id user of the new user
         $userId = $this->db->lastInsertId();
 
-        $sqlDetails = "INSERT INTO user_details (id_user, firstName, lastName, country, address, phone) VALUES (:user_id, :first_name, :last_name, :pays, :adresse, :phone)";
 
-        $stmt = $this->db->prepare($sqlDetails);
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->bindParam(':first_name', $userData['firstName']);
-        $stmt->bindParam(':last_name', $userData['lastName']);
-        $stmt->bindParam(':pays', $userData['pays']);
-        $stmt->bindParam(':adresse', $userData['adresse']);
-        $stmt->bindParam(':phone', $userData['phone']);
-        $stmt->execute();
+        // User details
+        $UserDetailsRepo = new UserDetailsRepository;
 
-        // Insert into professional_details if professional details were filled
-        if ($isProfessional) {
-            $sqlPro = "INSERT INTO professional_details (id_user, company_name, company_address, company_phone) VALUES (:user_id, :company_name, :company_address, :company_phone)";
-            $stmt = $this->db->prepare($sqlPro);
-            $stmt->bindParam(':user_id', $userId);
-            $stmt->bindParam(':company_name', $userData['company_name']);
-            $stmt->bindParam(':company_address', $userData['company_address']);
-            $stmt->bindParam(':company_phone', $userData['company_phone']);
-            $stmt->execute();
+        $UserDetailsRepo->createUserDetails($userData, $userId);
+
+        // Professional details
+        if ($isProfessional)
+        {
+            $proDetailsRepo = new ProfessionalDetailsRepository;
+            $proDetailsRepo->createProfessionalDetails($userData, $userId);
         }
 
     }
@@ -90,42 +80,15 @@ class UserRepository extends AbstractRepository
         $user = UserMapper::mapToObject($data);
 
 
-        // ------ User details -------
-
-        $sqlDetails = "SELECT user.id, address, phone, country, firstName, lastName, img_path FROM user JOIN user_details ON user.id = user_details.id_user JOIN image ON image.id = user.id_image WHERE user.id = :id";
-
-        $stmt = $this->db->prepare($sqlDetails);
-
-        $stmt->bindParam(':id' ,  $data['id']);
-
-        $stmt->execute();
-
-        $userDetailsData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $userDetails = UserDetailsMapper::mapToObject($userDetailsData);
-
-        $user->setUserDetails($userDetails);
+        return $user;
 
 
-        // ------ Professional details -------
+    }
 
-            $sqlPro = "SELECT * FROM professional_details WHERE id_user = :id";
 
-            $stmt = $this->db->prepare($sqlPro);
-            $stmt->bindParam(':id', $data['id']);
-            $stmt->execute();
 
-            $proData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if($proData){
-                $professionalData = ProfessionalDataMapper::mapToObject($proData);
 
-                $user->setProfessionalDetails($professionalData);
-            }
-            
-            
-            return $user;
-        } 
 
 
 
@@ -220,6 +183,21 @@ class UserRepository extends AbstractRepository
             ':id_image' => $idImage,
             ':id' => $userId
         ]);
+    }
+
+
+    public function getImageOfUser(int $userId): Image
+    {
+        $sql = "SELECT id, img_path FROM image WHERE id = (SELECT id_image FROM user WHERE id = :id)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+        return $data ? ImageMapper::mapToObject($data) : new Image(1, "default.jpg") ;
     }
 
 

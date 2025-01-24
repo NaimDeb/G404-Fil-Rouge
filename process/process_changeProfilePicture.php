@@ -30,7 +30,7 @@ if (!move_uploaded_file($profile_picture["tmp_name"], $uploadPath)) {
 
     $userRepo->updateProfilePicture($_SESSION["user"]->getId(), $fileName);
 
-    $_SESSION["user"]->getUserDetails()->setImg_url($fileName);
+    $_SESSION["user"]->getImage()->setImgPath($fileName);
 
     echo ("Image mise à jour avec succès");
     // Refresh page

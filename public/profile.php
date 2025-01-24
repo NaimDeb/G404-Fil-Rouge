@@ -9,10 +9,14 @@ if (!isset($_SESSION["user"])) {
 }
 
 
+$isProfessional = false;
 
+if ($_SESSION["professionalDetails"] !== null) {
+    $isProfessional = true;
+}
 
 $username = $user->getUserName();
-$user_image = $user->getUserDetails()->getImg_url();
+$user_image = $user->getImage();
 $user_desc = $user->getProfile_description();
 
 
@@ -21,11 +25,6 @@ if ($user_desc == null) {
     $user_desc = "Complétez votre profil avec une petite description !";
 };
 
-$isProfessional = false;
-
-if (null !== $user->getProfessionalDetails()) {
-    $isProfessional = true;
-}
 
 
 ?>
@@ -37,7 +36,7 @@ if (null !== $user->getProfessionalDetails()) {
 
         <!-- Profile pic -->
 
-        <img src="./assets/images/users/<?= $user_image ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
+        <img src="./assets/images/users/<?php echo $user_image->getImgPath() ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
 
         <!-- Nom et description -->
         <div class="flex flex-col items-center gap-2 mb-4">

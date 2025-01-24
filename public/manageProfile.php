@@ -8,8 +8,12 @@ if (!isset($_SESSION["user"])) {
     die();
 }
 
+$userDetails = $_SESSION["userDetails"];
+$professionalDetails = $_SESSION["professionalDetails"];
+
+
 $username = $user->getUserName();
-$user_image = $user->getUserDetails()->getImg_url();
+$user_image = $user->getImage();
 $user_desc = $user->getProfile_description();
 $user_role = $user->getRole();
 $userMail = $user->getMail();
@@ -22,25 +26,23 @@ if ($user_desc == null) {
 
 $isProfessional = false;
 
-$user_FirstName = $user->getUserDetails()->getFirstName();
-$user_LastName = $user->getUserDetails()->getLastName();
-$user_Address = $user->getUserDetails()->getAddress();
-$user_Phone = $user->getUserDetails()->getPhone();
-$user_Country = $user->getUserDetails()->getCountry();
+$user_FirstName = $userDetails->getFirstName();
+$user_LastName = $userDetails->getLastName();
+$user_Address = $userDetails->getAddress();
+$user_Phone = $userDetails->getPhone();
+$user_Country = $userDetails->getCountry();
 
 
 
 
 
 // Si l'utilisateur est un professionnel, on récupère les données.
-if ($user->getProfessionalDetails() != null) {
-    $user_professional = $user->getProfessionalDetails();
-    $company_name = $user_professional->getCompany_name();
-    $company_address = $user_professional->getCompany_address();
-    $company_phone = $user_professional->getCompany_phone();
+if ($professionalDetails != null) {
+    $company_name = $professionalDetails->getCompany_name();
+    $company_address = $professionalDetails->getCompany_address();
+    $company_phone = $professionalDetails->getCompany_phone();
     $isProfessional = true;
 }
-
 
 
 ?>
@@ -53,7 +55,7 @@ if ($user->getProfessionalDetails() != null) {
         <div class="text-neutral-off-white bg-green-500 p-2 text-center hidden" id="responseMessage"></div>
         <div class="relative w-fit m-auto">
             <!-- Display user's profile picture -->
-            <img src="./assets/images/users/<?= $user_image ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
+            <img src="./assets/images/users/<?php echo $user_image->getImgPath() ?>" alt="Photo de l'utilisateur" class="w-[100px] h-[100px] rounded-full m-auto backdrop-brightness-50 my-8">
 
 
             <!-- Form to change profile picture, hidden by default -->

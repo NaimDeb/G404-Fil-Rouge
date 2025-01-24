@@ -21,11 +21,34 @@ $userRepo = new UserRepository;
 
 $user = $userRepo->fetchUserByMailOrUsername($firstInput);
 
-
 if (!$user) {
     header("location: ../public/login.php?error=1");
     die();
 }
+
+$user->setImage($userRepo->getImageOfUser($user->getId()));
+
+
+
+
+ // User details
+$userDetailsRepo = new UserDetailsRepository;
+        
+$userDetails = $userDetailsRepo->getUserDetailsByUserId($user->getId());
+ 
+$userDetails->setUser($user);
+
+// Professional Details
+$proDetailsRepo = new ProfessionalDetailsRepository;
+
+$proDetails = $proDetailsRepo->getProDetailsByUserId($user->getId());
+
+if ($professionalDetails) {
+    $professionalDetails->setUser($user);
+}
+
+
+
 
 // Check password
 
@@ -39,6 +62,8 @@ if (!password_verify($_POST["password"], $user->getPassword())) {
 
 
 $_SESSION["user"] = $user;
+$_SESSION["userDetails"] = $userDetails;
+$_SESSION["professionalDetails"] = $proDetails;
 
 
 header("location: ../index.php");

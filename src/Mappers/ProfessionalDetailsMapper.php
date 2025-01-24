@@ -1,6 +1,6 @@
 <?php
 
-class ProfessionalDataMapper
+class ProfessionalDetailsMapper
 {
 
     public static function mapToObject(array $data)

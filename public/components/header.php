@@ -30,7 +30,7 @@ $user = $_SESSION["user"];
             <?php if (isset($_SESSION["user"])): ?>
                 <a href="./profile.php" class="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
                     <span class="text-sm text-nowrap self-end ml-2"><?php echo $user->getUsername() ?></span>
-                    <img src="./assets/images/users/<?php echo $user->getUserDetails()->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
+                    <img src="./assets/images/users/<?php echo $user->getImage()->getImgPath() ?>" alt="User Image" class="rounded-full h-8 w-8">
                 </a>
             <?php else: ?>
                 <a href="./login.php" class="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center">
@@ -73,7 +73,7 @@ $user = $_SESSION["user"];
         <?php if (isset($_SESSION["user"])): ?>
             <a href="./profile.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
                 <span class="text-sm text-nowrap self-end ml-2"><?php echo $user->getUsername() ?></span>
-                <img src="./assets/images/users/<?php echo $user->getUserDetails()->getImg_url() ?>" alt="User Image" class="rounded-full h-8 w-8">
+                <img src="./assets/images/users/<?php echo $user->getImage()->getImgPath() ?>" alt="User Image" class="rounded-full h-8 w-8">
             </a>
         <?php else: ?>
             <a href="./login.php" class="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
