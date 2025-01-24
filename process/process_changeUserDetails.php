@@ -1,32 +1,42 @@
 <?php
 require_once "../utils/autoloader.php";
-require_once "./process_sanitization.php";
 session_start();
+require_once "./process_sanitization.php";
 
 $user_details = [ "firstName", "lastName", "address", "phone", "country"];
 
-issetFields("manageProfile", $user_details);
+$sanitizedData = [];
+foreach ($user_details as $detail) {
+    // Isset and sanitize
+    if (!isset($_POST[$detail]) || empty($_POST[$detail])) {
+        header("location: ../public/manageprofile.php?error=emptyfield");
+        die();
+    }
+    $sanitizedData[$detail] = sanitizeData($_POST[$detail]);
+}
 
-$sanitizedData = sanitizeData($_POST["firstName"], $_POST["lastName"], $_POST["address"], $_POST["phone"], $_POST["country"]);
-
-
-// Vérifier num téléphone
-
-if (!preg_match("/^[0-9]*$/", $_POST["phone"])) {
-    header("location: ../public/manageprofile.php?error=invalidphone");
+// Vérifier mail
+if (!filter_var($sanitizedData["user_mail"], FILTER_VALIDATE_EMAIL)) {
+    header("location: ../public/manageprofile.php?error=invalidmail");
     die();
 }
 
-$userRepo = new UserRepository;
+// $userRepo = new UserRepository;
+$userDetailsRepo = new UserDetailsRepository;
 
-$userRepo->updateUserDetails($sanitizedData, $_SESSION["user"]->getId());
+// Update user details
+$userDetailsRepo->updateUserDetails(
+    $sanitizedData,
+    $_SESSION["user"]->getId()
+);
 
-$_SESSION["user"]->getUserDetails()->setFirstName($sanitizedData[0]);
-$_SESSION["user"]->getUserDetails()->setLastName($sanitizedData[1]);
-$_SESSION["user"]->getUserDetails()->setAddress($sanitizedData[2]);
-$_SESSION["user"]->getUserDetails()->setPhone($sanitizedData[3]);
-$_SESSION["user"]->getUserDetails()->setCountry($sanitizedData[4]);
+// Update session
+$_SESSION["userDetails"]->setFirstName($sanitizedData["firstName"]);
+$_SESSION["userDetails"]->setLastName($sanitizedData["lastName"]);
+$_SESSION["userDetails"]->setAddress($sanitizedData["address"]);
+$_SESSION["userDetails"]->setPhone($sanitizedData["phone"]);
+$_SESSION["userDetails"]->setCountry($sanitizedData["country"]);
 
+header("location: ../public/manageprofile.php?success=userDetailsUpdated");
 
-header("location: ../public/manageprofile.php");
-
+//! Probleme ça n'envoie rien dans la DB

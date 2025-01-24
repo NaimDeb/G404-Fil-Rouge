@@ -37,5 +37,22 @@ class UserDetailsRepository extends AbstractRepository
             ':lastName' => $userData["lastName"]
         ]);
     }
+
+
+    public function updateUserDetails(array $userData, int $userId)
+    {
+        $sql = "UPDATE user_details SET firstName = :firstName, lastName = :lastName, address = :address, phone = :phone, country = :country WHERE id_user = :id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->execute([
+            ':firstName' => $userData["firstName"],
+            ':lastName' => $userData["lastName"],
+            ':address' => $userData["address"],
+            ':phone' => $userData["phone"],
+            ':country' => $userData["country"],
+            ':id' => $userId
+        ]);
+    }
 }
 ?>

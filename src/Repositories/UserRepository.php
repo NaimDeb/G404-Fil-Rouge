@@ -93,21 +93,7 @@ class UserRepository extends AbstractRepository
 
 
     
-        public function updateUserDetails(array $userData, int $userId)
-    {
-        $sql = "UPDATE user_details SET firstName = :firstName, lastName = :lastName, address = :address, phone = :phone, country = :country WHERE id_user = :id";
 
-        $stmt = $this->db->prepare($sql);
-
-        $stmt->execute([
-            ':firstName' => $userData[0],
-            ':lastName' => $userData[1],
-            ':address' => $userData[2],
-            ':phone' => $userData[3],
-            ':country' => $userData[4],
-            ':id' => $userId
-        ]);
-    }
 
 
     public function checkUserPassword(int $userId, string $password): bool
@@ -139,8 +125,8 @@ class UserRepository extends AbstractRepository
         $sql = "UPDATE user SET username = :username, user_mail = :user_mail WHERE id = :id";
 
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(':username', $userData[1]);
-        $stmt->bindParam(':user_mail', $userData[0]);
+        $stmt->bindParam(':username', $userData["username"]);
+        $stmt->bindParam(':user_mail', $userData["user_mail"]);
         $stmt->bindParam(':id', $userId);
         $stmt->execute();
     }
