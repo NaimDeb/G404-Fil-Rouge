@@ -5,6 +5,8 @@ require_once "./process_sanitization.php";
 
 $user_details = [ "firstName", "lastName", "address", "phone", "country"];
 
+
+// Sanitization 
 $sanitizedData = [];
 foreach ($user_details as $detail) {
     // Isset and sanitize
@@ -15,11 +17,7 @@ foreach ($user_details as $detail) {
     $sanitizedData[$detail] = sanitizeData($_POST[$detail]);
 }
 
-// Vérifier mail
-if (!filter_var($sanitizedData["user_mail"], FILTER_VALIDATE_EMAIL)) {
-    header("location: ../public/manageprofile.php?error=invalidmail");
-    die();
-}
+
 
 // $userRepo = new UserRepository;
 $userDetailsRepo = new UserDetailsRepository;
