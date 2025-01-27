@@ -14,6 +14,11 @@ class Author{
         $this->id = $id;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
 
 }
 

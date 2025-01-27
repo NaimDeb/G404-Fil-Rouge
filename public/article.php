@@ -3,7 +3,8 @@ require_once "../utils/autoloader.php";
 require_once "./components/htmlstart.php";
 require_once "./components/header.php";
 
-
+// Vérification si l'ID existe bel et bien
+// Todo : redirect to 404
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 } else {
@@ -22,18 +23,37 @@ if(!$annonce){
     die();
 }
 
-// Todo : Do the whole annonce thing
-
-// ! header don't seem to work : Warning: Cannot modify header information - headers already sent by (output started at C:\wamp64\www\Projets\BookMarket\public\components\header.php:84) in C:\wamp64\www\Projets\BookMarket\public\article.php on line 10
-
-
-var_dump($annonce);
+// ! header redirections don't seem to work : Warning: Cannot modify header information - headers already sent by (output started at C:\wamp64\www\Projets\BookMarket\public\components\header.php:84) in C:\wamp64\www\Projets\BookMarket\public\article.php on line 10
 
 $annonceTitle = $annonce->getProduct()->getName();
 $annonceAuthor = $annonce->getProduct()->getAuthor();
+
+
 $annoncePrice = $annonce->getPrice();
+
+$priceEuros =  floor($annoncePrice / 100);
+$priceCents = $annoncePrice % 100;
+
 $annonceCondition = $annonce->getCondition();
 $annonceImages = $annonce->getImages();
+
+
+$product = $annonce->getProduct();
+$annonceUser = $annonce->getUser();
+
+
+// Product
+$productName = $product->getName();
+$productSpecifications = $product->getSpecifications();
+
+$productOriginalImage = $product->getImage();
+$productAuthor = $product->getAuthor();
+$productType = $product->getType();
+$productGenres = $product->getGenres();
+
+
+// 
+
 
 
 ?>
@@ -44,23 +64,23 @@ $annonceImages = $annonce->getImages();
         <div class="flex flex-col sm:flex-row gap-4 lg:justify-center">
             <!-- Todo : Carousel -->
             <div class="bg-neutral-off-white w-full h-[80vw] sm:w-[40vw] sm:h-[40vw] lg:w-[500px] lg:h-[500px] py-4 outline outline-1 outline-gray-600 flex items-center justify-center max-md:basis-1/2 ">
-                <img src="./assets/images/bookrandom.png" alt="Image de livre" class="object-contain h-full">
+                <img src="./assets/images/products/<?php echo $productOriginalImage->getImgPath(); ?>" alt="Image de livre" class="object-contain h-full">
             </div>
             <!-- Link to -->
 
             <div class="sm:flex sm:flex-col lg:justify-between lg:w-[500px] lg:h-[500px] gap-4">
-                <p class="text-lg text-gray-500"> <a href="">Romans</a> > <a href="">Romans policiers</a> </p>
+                <p class="text-lg text-gray-500"> <a href=""><?php echo $productType->getTypeName(); ?></a> > <a href=""><?php echo $productGenres[0]->getName(); ?></a> </p>
                 <!-- Infos livre -->
                 <div class="flex justify-between">
                     <div class="flex-col">
-                        <h2 class="text-3xl font-merriweather font-bold"> Titre long Titre long Titre long</h2>
-                        <h4 class="text-md"> Par auteur auteur auteurauteur auteur auteur</h4>
-                        <h4 class="text-md text-opacity-50 text-neutral-off-black"> Etat : <span class="font-bold"> AAAAAAAAA</span></h4>
+                        <h2 class="text-3xl font-merriweather font-bold"><?php echo $annonceTitle; ?></h2>
+                        <h4 class="text-md"> Par <?php echo $annonceAuthor->getName(); ?></h4>
+                        <h4 class="text-md text-opacity-50 text-neutral-off-black"> Etat : <span class="font-bold"><?php echo $annonceCondition; ?></span></h4>
                     </div>
                     <!-- Prix -->
                     <label for="price" class="text-nowrap">
-                        <span class="text-3xl font-merriweather font-bold">99,</span>
-                        <span class="text-sm font-bold">99</span>
+                        <span class="text-3xl font-merriweather font-bold"><?php echo $priceEuros; ?>,</span>
+                        <span class="text-sm font-bold"><?php echo str_pad($priceCents, 2, '0', STR_PAD_LEFT); ?></span>
                         <span class="text-3xl font-bold font-merriweather ">€</span>
                     </label>
                 </div>
@@ -68,7 +88,7 @@ $annonceImages = $annonce->getImages();
                 <!-- Description -->
                 <section class="hidden lg:inline flex-col gap-8">
                     <h3 class="text-2xl font-merriweather font-bold">Description</h3>
-                    <p class="text-lg"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae cumque aliquid ea nesciunt corporis alias quod saepe, qui voluptatum labore vel fugiat. Reprehenderit labore commodi veniam molestiae accusantium minus iste.</p>
+                    <p class="text-lg"><?php echo $productSpecifications; ?></p>
                 </section>
 
                 <!-- Bouton achat -->
@@ -85,7 +105,7 @@ $annonceImages = $annonce->getImages();
     <!-- Description -->
     <section class="p-8 lg:hidden text-neutral-off-black">
         <h3 class="text-2xl font-merriweather font-bold">Description</h3>
-        <p class="text-lg"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae cumque aliquid ea nesciunt corporis alias quod saepe, qui voluptatum labore vel fugiat. Reprehenderit labore commodi veniam molestiae accusantium minus iste.</p>
+        <p class="text-lg"><?php echo $productSpecifications; ?></p>
     </section>
 
     <!-- Par le même auteur -->

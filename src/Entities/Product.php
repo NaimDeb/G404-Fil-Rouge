@@ -43,7 +43,7 @@ class Product {
         return $this->id;
     }
 
-    public function getAuthot(): Author
+    public function getAuthor(): Author
     {
         return $this->author;
     }
@@ -63,13 +63,6 @@ class Product {
         return $this;
     }
 
-    /**
-     * Get the value of author
-     */ 
-    public function getAuthor(): Author
-    {
-        return $this->author;
-    }
 
     /**
      * Set the value of author
