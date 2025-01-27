@@ -28,6 +28,29 @@ class Product {
         return $this->image;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getSpecifications(): string
+    {
+        return $this->specifications;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getAuthot(): Author
+    {
+        return $this->author;
+    }
+
+
+
+
     /**
      * Set the value of image
      *
@@ -93,8 +116,18 @@ class Product {
      *
      * @return  self
      */ 
-    public function setGenres($genres)
+    public function setGenres(array $genres)
     {
+
+        // Check if array given has instances of genre
+
+        foreach($genres as $genre){
+            if(!$genre instanceof Genre){
+                throw new Exception('Invalid genre');
+            }
+        }
+
+
         $this->genres = $genres;
 
         return $this;

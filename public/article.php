@@ -29,6 +29,13 @@ if(!$annonce){
 
 var_dump($annonce);
 
+$annonceTitle = $annonce->getProduct()->getName();
+$annonceAuthor = $annonce->getProduct()->getAuthor();
+$annoncePrice = $annonce->getPrice();
+$annonceCondition = $annonce->getCondition();
+$annonceImages = $annonce->getImages();
+
+
 ?>
 
 <main>

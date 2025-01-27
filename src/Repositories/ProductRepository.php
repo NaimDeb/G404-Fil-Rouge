@@ -19,7 +19,26 @@ final class ProductRepository extends AbstractRepository{
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        return ProductMapper::mapToObject($data);
+        // fetch Image
+        $imageRepo = new ImageRepository($this->db);
+        $image = $imageRepo->getImageById($data['id_image']);
+
+        $typeRepo = new TypeRepository($this->db);
+        $type = $typeRepo->fetchById($data['id_type']);
+
+        $authorRepo = new AuthorRepository($this->db);
+        $author = $authorRepo->fetchById($data['id_author']);
+        
+
+        $genreRepo = new GenreRepository($this->db);
+        $genres = $genreRepo->fetchGenresByProductId($data['id']);
+        
+
+
+
+
+
+        return ProductMapper::mapToObject($data, $image, $author, $type, $genres);
     }
 
 
