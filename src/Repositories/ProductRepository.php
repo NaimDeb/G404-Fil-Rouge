@@ -41,6 +41,20 @@ final class ProductRepository extends AbstractRepository{
         return ProductMapper::mapToObject($data, $image, $author, $type, $genres);
     }
 
+    public function searchProductsByName($query): array {
+
+        $sql = "SELECT product.*, author.name as author_name 
+            FROM product 
+            JOIN author ON product.id_author = author.id 
+            WHERE product.name LIKE :query";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([":query" => '%' . $query . '%']);
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $products;
+    }
+
 
 }
 
