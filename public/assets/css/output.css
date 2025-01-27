@@ -614,6 +614,10 @@ video {
   position: relative;
 }
 
+.inset-0{
+  inset: 0px;
+}
+
 .bottom-0{
   bottom: 0px;
 }
@@ -668,6 +672,21 @@ video {
 .my-8{
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.my-4{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.my-16{
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.mx-8{
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .mb-2{
@@ -750,6 +769,23 @@ video {
   height: 100%;
 }
 
+.h-\[180px\]{
+  height: 180px;
+}
+
+.h-fit{
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.h-\[\]{
+  height: ;
+}
+
+.h-\[300px\]{
+  height: 300px;
+}
+
 .max-h-12{
   max-height: 3rem;
 }
@@ -807,8 +843,8 @@ video {
   width: 100%;
 }
 
-.max-w-\[40vw\]{
-  max-width: 40vw;
+.w-\[180px\]{
+  width: 180px;
 }
 
 .max-w-\[50vw\]{
@@ -936,6 +972,10 @@ video {
 
 .gap-8{
   gap: 2rem;
+}
+
+.gap-5{
+  gap: 1.25rem;
 }
 
 .space-x-6 > :not([hidden]) ~ :not([hidden]){
@@ -1174,6 +1214,10 @@ video {
 .py-8{
   padding-top: 2rem;
   padding-bottom: 2rem;
+}
+
+.pb-\[100\%\]{
+  padding-bottom: 100%;
 }
 
 .text-center{

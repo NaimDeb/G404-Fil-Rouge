@@ -25,36 +25,50 @@ require_once "./components/header.php";
 
     <!-- Section nouveaux produits -->
     <section class="py-8 px-8">
-        <h2 class="  font-merriweather text-2xl font-bold mb-4 md:text-3xl">Nouveaux produits</h2>
+        <h2 class="  font-merriweather text-2xl font-bold mb-4  md:text-3xl">Nouveaux produits</h2>
 
 
-        <div class="flex gap-3 flex-wrap justify-between">
+        <div class="flex gap-8 flex-nowrap h-fit my-16 mx-8">
+
+            <?php
+            $annonceRepo = new AnnonceRepository;
+
+            // Todo : dynamic fetching
+            $annonces = $annonceRepo->getAnnonces(10);
 
 
-        
-            <!-- Card -->
-            <article class="basis-[45%] md:basis-[30%] lg:basis-[20%] ">
-                <a href="./pages/article.php?id=1" class="group w-21">
-                    <div class="max-w-[40vw] border-gray-400 border-[1px]  items-center">
-                        <img src="./assets/images/bookrandom.png" alt="" class="m-auto object-scale-down">
-                    </div>
+            foreach ($annonces as $annonce) {
 
-                    <div class="flex flex-col">
-                        <h3 class="font-merriweather font-bold truncate text-lg">TITRE DU LIVRE</h3>
+                $annonceId = $annonce->getId();
 
-                        <div class="flex justify-between w-fit">
-                            <div class="text-sm font-open-sans text-gray-500">
-                                <p>AUTEUR</p>
-                                <p>ETAT ETAT</p>
-                            </div>
-                            <p class="font-xl font-merriweather font-bold">99,99€</p>
-                        </div>
-                    </div>
-                </a>
-            </article>
-            
- 
-           
+                $annonceTitle = $annonce->getProduct()->getName();
+                $annonceAuthor = $annonce->getProduct()->getAuthor();
+
+                $annoncePrice = $annonce->getPrice();
+
+                $priceEuros =  floor($annoncePrice / 100);
+                $priceCents = $annoncePrice % 100;
+
+                $annonceCondition = $annonce->getCondition();
+                $annonceImages = $annonce->getImages();
+
+                $product = $annonce->getProduct();
+                $annonceUser = $annonce->getUser();
+
+                $productName = $product->getName();
+                $productSpecifications = $product->getSpecifications();
+
+                $productOriginalImage = $product->getImage();
+                $productAuthor = $product->getAuthor();
+                $productType = $product->getType();
+                $productGenres = $product->getGenres();
+
+                require "./components/card.php";
+            }
+
+            ?>
+
+
 
         </div>
 
