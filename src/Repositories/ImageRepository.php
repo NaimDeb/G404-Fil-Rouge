@@ -1,6 +1,6 @@
 <?php
 
-class ImageRepository extends AbstractRepository{
+final class ImageRepository extends AbstractRepository{
 
 
     public function __construct(){
@@ -39,6 +39,28 @@ class ImageRepository extends AbstractRepository{
         return $this->db->lastInsertId();
 
         
+    }
+
+    public function fetchImagesByAnnonceId(int $annonceId): array{
+
+        $sql = "SELECT image.id, image.img_path FROM image JOIN image_annonce ON image.id = image_annonce.id_image WHERE image_annonce.id_annonce = :id_annonce;";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':id_annonce', $annonceId);
+
+        $stmt->execute();
+
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $images = [];
+
+        foreach ($data as $image) {
+            $images[] = ImageMapper::mapToObject($image);
+        }
+
+        return $images;
+
     }
 
 

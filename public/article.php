@@ -1,5 +1,5 @@
 <?php
-require_once "../utils/autoloader.php"
+require_once "../utils/autoloader.php";
 require_once "./components/htmlstart.php";
 require_once "./components/header.php";
 
@@ -7,7 +7,7 @@ require_once "./components/header.php";
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 } else {
-    header('Location: index.php');
+    // header('location: ../index.php');
     die();
 }
 
@@ -18,12 +18,16 @@ $annonceRepo = new AnnonceRepository;
 $annonce = $annonceRepo->fetchAnnonceById($annonceId);
 
 if(!$annonce){
-    header('Location: index.php');
+    // header('location: ../index.php');
     die();
 }
 
 // Todo : Do the whole annonce thing
 
+// ! header don't seem to work : Warning: Cannot modify header information - headers already sent by (output started at C:\wamp64\www\Projets\BookMarket\public\components\header.php:84) in C:\wamp64\www\Projets\BookMarket\public\article.php on line 10
+
+
+var_dump($annonce);
 
 ?>
 

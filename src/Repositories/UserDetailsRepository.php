@@ -1,6 +1,6 @@
 <?php
 
-class UserDetailsRepository extends AbstractRepository
+final class UserDetailsRepository extends AbstractRepository
 {
 
     public function __construct()

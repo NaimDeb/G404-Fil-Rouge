@@ -1,7 +1,7 @@
 <?php
 
 
-class UserRepository extends AbstractRepository
+final class UserRepository extends AbstractRepository
 {
 
     public function __construct()
@@ -85,6 +85,24 @@ class UserRepository extends AbstractRepository
 
     }
 
+
+    public function fetchUserById(int $userId): ?User {
+        $sql = "SELECT * FROM user WHERE id = :id";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':id', $userId);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (count($data) === 0) {
+            return null;
+        }
+
+        $user = UserMapper::mapToObject($data);
+
+        return $user;
+    }
 
 
 
