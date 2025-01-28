@@ -49,3 +49,10 @@ Lien du sujet : [BookMarket](https://github.com/G404-DWWM/BookMarket)
 <hr>
 
 **Bon courage** pour ce **projet ambitieux !** À chaque étape, n’hésitez pas à poser vos questions et à partager vos avancements. Ce projet sera une belle démonstration de votre progression en développement web. ✨
+
+<hr>
+
+### Choses apprises
+
+- Garder plus de données dans la BDD,  tel que created_at pour récupérer les annonces dans l'ordre de création, ou encore une description pour les livres.
+
