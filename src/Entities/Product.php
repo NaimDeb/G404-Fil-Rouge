@@ -8,7 +8,7 @@ class Product {
 
     // ?
 
-    private Image $image;
+    private ?Image $image;
     private Author $author;
     private Type $type;
     private array $genres;
@@ -18,12 +18,15 @@ class Product {
         $this->name = $name;
         $this->specifications = $specifications;
         $this->id = $id;
+
+        $this->genres = [];
+        $this->image = null;
     }
 
     /**
      * Get the value of image
      */ 
-    public function getImage(): Image
+    public function getImage(): ?Image
     {
         return $this->image;
     }

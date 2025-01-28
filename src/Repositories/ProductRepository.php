@@ -41,6 +41,9 @@ final class ProductRepository extends AbstractRepository{
         return ProductMapper::mapToObject($data, $image, $author, $type, $genres);
     }
 
+    /**
+     * Search all products with their author who have $query in their name and returns the list
+     */
     public function searchProductsByName($query): array {
 
         $sql = "SELECT product.*, author.name as author_name 
@@ -55,15 +58,39 @@ final class ProductRepository extends AbstractRepository{
         return $products;
     }
 
-    public function fetchProductByName(string $productname): ?Product{
-        
+    /**
+     * Fetch product by name
+     */
+    public function fetchProductByName(string $productname): ?Product {
         $sql = "SELECT * FROM product WHERE name = :name";
-
         $stmt = $this->db->prepare($sql);
         $stmt->execute([":name" => $productname]);
-        $product = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $product ?? null;
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($data === false) {
+            return null;
+        }
+    
+        // Ensure type_id is set correctly
+        $typeId = isset($data['type_id']) && $data['type_id'] != 0 ? $data['type_id'] : 1;
+    
+        // Fetch Image
+        $imageRepo = new ImageRepository($this->db);
+        $image = $imageRepo->getImageById($data['id_image']);
+    
+        $typeRepo = new TypeRepository($this->db);
+        $type = $typeRepo->fetchById($typeId);
+    
+        $authorRepo = new AuthorRepository($this->db);
+        $author = $authorRepo->fetchById($data['id_author']);
+    
+        $genreRepo = new GenreRepository($this->db);
+        $genres = $genreRepo->fetchGenresByProductId($data['id']);
+    
+        // Ensure specifications is not null
+        $specifications = $data['specifications'] ?? '';
+    
+        return new Product($data['name'], $specifications, $data['id'], $image, $author, $type, $genres);
     }
 
     /**
@@ -75,10 +102,16 @@ final class ProductRepository extends AbstractRepository{
 
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindParam(':name', $product->getName());
-        $stmt->bindParam(':id_author', $product->getAuthor()->getId());
-        $stmt->bindParam(':id_type', $product->getType()->getId());
-        $stmt->bindParam(':id_image', $product->getImage()->getId());
+
+        $name = $product->getName();
+        $id_author = $product->getAuthor()->getId();
+        $id_type = $product->getType()->getId();
+        $id_image = $product->getImage() ? $product->getImage()->getId() : 1;
+
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':id_author', $id_author);
+        $stmt->bindParam(':id_type', $id_type);
+        $stmt->bindParam(':id_image', $id_image);
 
         $stmt->execute();
 
@@ -112,7 +145,11 @@ final class ProductRepository extends AbstractRepository{
                 WHERE product_id = :product_id AND genre_id = :genre_id
                 )';
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':product_id', $product->getId());
+
+
+            $productId = $product->getId();
+
+            $stmt->bindParam(':product_id', $productId);
             $stmt->bindParam(':genre_id', $genreId);
             $stmt->execute();
         }

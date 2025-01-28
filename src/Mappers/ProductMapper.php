@@ -7,7 +7,7 @@ class ProductMapper {
     {
         $product = new Product(
             $data['name'],
-            $data['specifications'],
+            $data['specifications'] ? $data['specifications'] : "no specifications",
             $data['id'],
         );
 

@@ -3,8 +3,7 @@ require_once "../utils/autoloader.php";
 session_start();
 
 
-var_dump($_FILES);
-die();
+
 
 if (!isset($_SESSION["user"] ,$_POST, $_FILES)) {
     header("location: ../public/sell.php?error=1");
@@ -13,7 +12,7 @@ if (!isset($_SESSION["user"] ,$_POST, $_FILES)) {
 
 $user = $_SESSION["user"];
 
-if (!isset($_POST["product_name"], $_POST["product_specifications"], $_POST["product_author_id"], $_POST["price"], $_POST["condition"], $_FILES["official_image"], $_FILES["image"])) {
+if (!isset($_POST["title"], $_POST["author"], $_POST["price"], $_POST["condition"], $_FILES["image"])) {
     header("location: ../public/sell.php?error=emptyfields");
     die();
 }
@@ -47,11 +46,6 @@ $validConditions = [
 
 $condition = $validConditions[$condition];
 
-if (!array_key_exists($condition, $validConditions)) {
-    header("location: ../public/sell.php?error=invalidcondition");
-    die();
-}
-
 // Validate and convert price
 if (!is_numeric($price)) {
     header("location: ../public/sell.php?error=invalidprice");
@@ -60,13 +54,6 @@ if (!is_numeric($price)) {
 $price = intval(floatval($price) * 100);
 
 // Validate images
-foreach ($_FILES["image"]["tmp_name"] as $key => $tmp_name) {
-    $check = getimagesize($tmp_name);
-    if ($check === false) {
-        header("location: ../public/sell.php?error=invalidimage");
-        die();
-    }
-}
 
 
 
@@ -117,6 +104,7 @@ $images = [];
 
 foreach ($_FILES["image"]["error"] as $index => $error) {
     if ($error !== 0) {
+        var_dump($_FILES);
         throw new Exception("Image error", 1);
         header("location: ../public/sell.php?error=uploadfailed");
         

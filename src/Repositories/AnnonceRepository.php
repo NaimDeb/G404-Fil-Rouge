@@ -94,4 +94,27 @@ final class AnnonceRepository extends AbstractRepository
             "images" => $images
         ];
     }
+
+
+    public function createAnnonce(Annonce $annonce): int{
+
+        $sql = 'INSERT INTO annonce (price, id_product, id_user, `condition`) VALUES (:price, :id_product, :id_user, :condition)';
+
+        $stmt = $this->db->prepare($sql);
+
+        $price = $annonce->getPrice();
+        $idProduct = $annonce->getProduct()->getId();
+        $idUser = $annonce->getUser()->getId();
+        $condition = $annonce->getCondition();
+
+        $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':id_product', $idProduct);
+        $stmt->bindParam(':id_user', $idUser);
+        $stmt->bindParam(':condition', $condition);
+
+        $stmt->execute();
+
+        return $this->db->lastInsertId();
+
+    }
 }

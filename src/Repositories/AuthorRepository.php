@@ -31,7 +31,9 @@ final class AuthorRepository extends AbstractRepository{
 
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindParam(':name', $author->getName());
+        $authorName = $author->getName();
+
+        $stmt->bindParam(':name', $authorName);
 
         $stmt->execute();
 
@@ -40,7 +42,7 @@ final class AuthorRepository extends AbstractRepository{
         return $author;
     }
 
-    public function fetchByName(int $authorName): ?Author{
+    public function fetchByName(string $authorName): ?Author{
         
         $sql = "SELECT * FROM author WHERE name = :name";
 
@@ -51,6 +53,10 @@ final class AuthorRepository extends AbstractRepository{
         $stmt->execute();
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$data) {
+            return null;
+        }
 
         return AuthorMapper::mapToObject($data);
     }

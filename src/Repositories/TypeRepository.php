@@ -9,7 +9,7 @@ final class TypeRepository extends AbstractRepository{
     }
 
 
-    public function fetchById($typeId) {
+    public function fetchById($typeId): ?Type {
 
         $sql = 'SELECT * FROM type WHERE id = :id';
 
@@ -20,6 +20,8 @@ final class TypeRepository extends AbstractRepository{
         $stmt->execute();
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
 
         return TypeMapper::mapToObject($data);
 
