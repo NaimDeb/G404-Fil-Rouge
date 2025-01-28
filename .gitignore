@@ -1,2 +1,12 @@
 node_modules
-globals.php
+public/assets/images/**/*
+node_modules/
+public/assets/css/output.css
+.env
+*.log
+database/*.sql
+var/sessions/
+.vscode/
+.idea/
+*.swp
+/tmp/
