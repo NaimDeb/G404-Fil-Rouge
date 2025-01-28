@@ -31,9 +31,9 @@ foreach ($listeProducts as $element) {
     $artiste = $element['author_name'];
 
         $htmlString .= '
-        <div class="music-item flex items-center space-x-4 bg-white p-4 hover:bg-gray-100 transition">
-            <div>
-            <h3 class="text-black text-lg font-semibold">' . $titre . '</h3>
+        <div class="flex items-center space-x-4 bg-neutral-off-white p-4 hover:bg-gray-200 group transition" onclick="selectProduct(this)">
+            <div class>
+            <h3 class="text-black text-md font-semibold">' . $titre . '</h3>
             <p class="text-gray-500 text-sm">' . $artiste . '</p>
             </div>
         </div>

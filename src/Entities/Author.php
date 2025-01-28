@@ -7,7 +7,7 @@ class Author{
     private string $biography;
 
 
-    public function __construct(string $name, string $biography, int $id = 0){
+    public function __construct(string $name, string $biography = "Aucune biographie", int $id = 0){
 
         $this->name = $name;
         $this->biography = $biography;
@@ -17,6 +17,16 @@ class Author{
     public function getName(): string
     {
         return $this->name;
+    }
+    
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 
 

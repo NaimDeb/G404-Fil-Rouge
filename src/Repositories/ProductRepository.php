@@ -55,6 +55,70 @@ final class ProductRepository extends AbstractRepository{
         return $products;
     }
 
+    public function fetchProductByName(string $productname): ?Product{
+        
+        $sql = "SELECT * FROM product WHERE name = :name";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([":name" => $productname]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $product ?? null;
+    }
+
+    /**
+     * Create a new product in DB
+     */
+    public function createProduct(Product $product) {
+
+        $sql = 'INSERT INTO product (name, id_author, id_type, id_image) VALUES (:name, :id_author, :id_type, :id_image)';
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':name', $product->getName());
+        $stmt->bindParam(':id_author', $product->getAuthor()->getId());
+        $stmt->bindParam(':id_type', $product->getType()->getId());
+        $stmt->bindParam(':id_image', $product->getImage()->getId());
+
+        $stmt->execute();
+
+        $product->setId($this->db->lastInsertId());
+
+        // Insert genres
+        foreach ($product->getGenres() as $genre) {
+
+            $genreName = $genre->getName();
+            // Check if genre exists
+            $sql = 'SELECT id FROM genre WHERE name = :name';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':name', $genreName);
+            $stmt->execute();
+            $genreId = $stmt->fetchColumn();
+
+            // If genre does not exist, create it
+            if (!$genreId) {
+            $sql = 'INSERT INTO genre (name) VALUES (:name)';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':name', $genreName);
+            $stmt->execute();
+            $genreId = $this->db->lastInsertId();
+            }
+
+            // Insert into product_genre
+            $sql = 'INSERT INTO product_genre (product_id, genre_id) 
+                SELECT :product_id, :genre_id 
+                WHERE NOT EXISTS (
+                SELECT 1 FROM product_genre 
+                WHERE product_id = :product_id AND genre_id = :genre_id
+                )';
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':product_id', $product->getId());
+            $stmt->bindParam(':genre_id', $genreId);
+            $stmt->execute();
+        }
+
+    }
+
 
 }
 

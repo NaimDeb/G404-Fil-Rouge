@@ -20,7 +20,7 @@ if ($professionalDetails != null) {
 <main class="bg-primary-beige min-h-screen flex items-center justify-center py-8">
     <div class="container max-w-lg mx-auto bg-neutral-off-white p-8 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold text-primary-green mb-4 text-center">Create Annonce</h1>
-        <form action="process_add_annonce.php" method="post" enctype="multipart/form-data">
+        <form action="../process/process_add_annonce.php" method="post" enctype="multipart/form-data">
             <div class="form-group mb-4">
                 <label for="image" class="block text-primary-green text-sm font-bold mb-2">Images:</label>
                 <input type="file" id="image" name="image[]" class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" multiple required onchange="previewImages(event)">
@@ -31,7 +31,7 @@ if ($professionalDetails != null) {
             <div class="form-group mb-4 relative">
                 <label for="title" class="block text-primary-green text-sm font-bold mb-2">Nom du produit:</label>
                 <input type="text" id="title" name="title" class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" placeholder="Nom du produit" onkeyup="showResult(this.value)" required>
-                <div class="livesearch absolute top-full left-0 mt-2 w-full bg-neutral-900 shadow-lg p-4 space-y-4 hidden"></div>
+                <div class="livesearch absolute top-full left-0 mt-2 w-full bg-neutral-off-white shadow-lg p-4 space-y-4 hidden"></div>
             </div>
 
 
@@ -39,17 +39,20 @@ if ($professionalDetails != null) {
                 <div class="form-group mb-4">
                     <label for="condition" class="block text-primary-green text-sm font-bold mb-2">Condition:</label>
                     <select id="condition" name="condition" class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" required>
-                        <option value="new">New</option>
-                        <option value="like_new">Like new</option>
-                        <option value="good">Good</option>
+                        <option value="new">Neuf</option>
+                        <option value="like_new">Comme neuf</option>
+                        <option value="good">Bon état</option>
                         <option value="acceptable">Acceptable</option>
-                        <option value="damaged">Damaged</option>
+                        <option value="damaged">Endommagé</option>
                     </select>
                 </div>
                 <div class="form-group mb-4">
                     <label for="author" class="block text-primary-green text-sm font-bold mb-2">Auteur:</label>
                     <input type="text" id="author" name="author" class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" placeholder="Auteur" required>
                 </div>
+
+                <!-- todo : add tags -->
+
                 <label for="description" class="block text-primary-green text-sm font-bold mb-2">Description:</label>
                 <textarea id="description" name="description" class="shadow appearance-none rounded border-gray-300 border-[1px] w-full py-2 px-3 text-neutral-off-black leading-tight focus:outline-none focus:shadow-outline" placeholder="Description du produit" required></textarea>
             </div>
@@ -118,4 +121,12 @@ if ($professionalDetails != null) {
             document.querySelector(".livesearch").classList.add('hidden');
         }
     });
+
+
+
+    function selectProduct(element) {
+        document.getElementById('title').value = element.querySelector('h3').innerText;
+        document.getElementById('author').value = element.querySelector('p').innerText;
+        document.querySelector(".livesearch").classList.add('hidden');
+    }
 </script>

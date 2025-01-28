@@ -13,7 +13,7 @@ class Product {
     private Type $type;
     private array $genres;
  
-    public function __construct(string $name, string $specifications, int $id = 0){
+    public function __construct(string $name, string $specifications = "Aucune spécification", int $id = 0){
 
         $this->name = $name;
         $this->specifications = $specifications;
@@ -135,6 +135,13 @@ class Product {
     {
 
         $this->genres[] = $genre;
+
+        return $this;
+    }
+
+    public function setId(int $id): self
+    {
+        $this->id = $id;
 
         return $this;
     }

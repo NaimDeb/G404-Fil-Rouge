@@ -29,6 +29,9 @@ final class ImageRepository extends AbstractRepository{
         return ImageMapper::mapToObject($data);
     }
 
+    /**
+     * Insert image into db
+     */
     public function createImage(string $fileName){
         $sql = "INSERT INTO image (img_path) VALUES (:image_path)";
         $stmt = $this->db->prepare($sql);
@@ -61,6 +64,27 @@ final class ImageRepository extends AbstractRepository{
 
         return $images;
 
+    }
+
+    public function insertIntoFolder($picture, string $uploadFolder){
+
+        if ($picture["error"] !== UPLOAD_ERR_OK) {
+            echo("Erreur lors de l'upload de l'image");
+            return null;
+        }
+            
+        
+        $uploadDir = "../public/assets/images/" . $uploadFolder . "/";
+
+        $fileName = uniqid() . basename($picture["name"]);
+        
+        
+        $uploadPath = $uploadDir . $fileName;
+        
+        if (!move_uploaded_file($picture["tmp_name"], $uploadPath)) {
+            echo "Failed to move uploaded file.";
+            return null;
+        }
     }
 
 
