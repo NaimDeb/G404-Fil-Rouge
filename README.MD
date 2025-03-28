@@ -1,58 +1,36 @@
-# TP Fil Rouge : BookMarket
-## Version Node.js
-## 📚 Le projet BookMarket
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-### Contexte
+## Getting Started
 
-Le projet BookMarket est votre Fil Rouge pour l’année. Il vous permettra de mettre en pratique les compétences acquises tout au long de votre parcours, tout en construisant un projet solide à intégrer dans votre portfolio. Ce dernier pourra vous aider à vous démarquer auprès de futurs recruteurs ou clients. Pour atteindre cet objectif, veillez à accorder une attention particulière à tous les aspects qui composent un site web professionnel.
+First, run the development server:
 
-Lien du sujet : [BookMarket](https://github.com/G404-DWWM/BookMarket)
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## 🔨 Réalisations attendues
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-* Créer le modèle entité - association
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-* Intégrer le frontend avec HTML/CSS à partir de la maquette réalisé précédemment.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-* Implémenter le backend avec PHP et PDO (CRUD sur les entités).
+## Learn More
 
-* Ajouter l’authentification et la gestion des rôles.
+To learn more about Next.js, take a look at the following resources:
 
-<hr>
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-1. Frontend
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-    * Une interface responsive et esthétique respectant les bonnes pratiques d’accessibilité.
+## Deploy on Vercel
 
-    * Privilégier l'utilisation de TailwindCSS
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-2. Backend
-
-    * Une application fonctionnelle utilisant PHP et PDO pour manipuler la base de données.
-
-    * Une gestion sécurisée des utilisateurs et des sessions.
-
-## 🔍 Conseils pour réussir
-
-* Planifiez vos tâches. Organisez vous avec la méthode Kanban (Trello).
-
-* Soyez curieux. Explorez les standards d’accessibilité et les bonnes pratiques de codage.
-
-## 🎨 Pour aller plus loin
-
-* Intégration d’un système de panier pour simuler des achats.
-
-* Amélioration du SEO (optimisation des méta-données, sitemap XML).
-
-* Implémentation de graphiques pour les statistiques du Back Office avec une bibliothèque JS.
-
-<hr>
-
-**Bon courage** pour ce **projet ambitieux !** À chaque étape, n’hésitez pas à poser vos questions et à partager vos avancements. Ce projet sera une belle démonstration de votre progression en développement web. ✨
-
-<hr>
-
-### Choses apprises
-
-- Garder plus de données dans la BDD,  tel que created_at pour récupérer les annonces dans l'ordre de création, ou encore une description pour les livres.
-
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
