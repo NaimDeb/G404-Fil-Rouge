@@ -18,25 +18,27 @@ export default function Header() {
           <a href="./home.php" className="w-[80%] md:order-1 mx-auto md:px-2">
             <Image
               src="./assets/images/Logo.svg"
+              width={32}
+                height={32}
               alt="Logo Bookmarket"
               className="object-scale-down max-h-12 mx-auto sm:mx-0"
             />
           </a>
 
           {/* User sm et moins  */}
-          {user ? (
+          {true ? (
             <a
               href="./profile.php"
               className="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center"
             >
               <span className="text-sm text-nowrap self-end ml-2">
-                {user.getUsername()}
+                {/* {user.getUsername()} */}
               </span>
-              <Image
-                src={`./assets/images/users/${user.getImage().getImgPath()}`}
+              {/* <Image
+                // src={`./assets/images/users/${user.getImage().getImgPath()}`}
                 alt="User Image"
                 className="rounded-full h-8 w-8"
-              />
+              /> */}
             </a>
           ) : (
             <a
@@ -82,7 +84,7 @@ export default function Header() {
           </label>
           <input
             type="text"
-            onKeyUp={showResult(this.value)}
+            // onKeyUp={showResult(this.value)}
             placeholder="Vous cherchez un livre ? Recherchez ici..."
             className="text-neutral-off-black focus:outline-none basis-3/5 w-full truncate"
             aria-label="Rechercher un livre ou un utilisateur"
@@ -97,16 +99,16 @@ export default function Header() {
         </div>
 
         {/* User (md+) */}
-        {user ? (
+        {true ? (
           <a
             href="./profile.php"
             className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center"
           >
             <span className="text-sm text-nowrap self-end ml-2">
-              {user.username}
+              {/* {user.username} */}
             </span>
             <Image
-              src="./assets/images/users/<?php echo $user->getImage()->getImgPath() ?>"
+              src=`./assets/images/users/${$user->getImage()->getImgPath() ?>}`
               alt="User Image"
               className="rounded-full h-8 w-8"
             />
