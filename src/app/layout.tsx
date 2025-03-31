@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${merriweather.className} antialiased bg-primary-beige`}
+        className={`${merriweather.className} antialiased !bg-primary-beige`}
         >
         <Header/>
         {children}
