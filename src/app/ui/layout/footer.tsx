@@ -7,10 +7,10 @@ export default function Footer() {
         {/* Logo  */}
         <a href="#" className="max-h-full md:w-auto">
           <Image
-            src="./assets/images/Logo.svg"
+            src="/Logo.svg"
             alt="Logo Bookmarket"
             className="object-scale-down max-h-full"
-            width={32}
+            width={192}
             height={32}
           />
         </a>
