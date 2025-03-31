@@ -19,7 +19,7 @@ export default function Header() {
             <Image
               src="./assets/images/Logo.svg"
               width={32}
-                height={32}
+              height={32}
               alt="Logo Bookmarket"
               className="object-scale-down max-h-12 mx-auto sm:mx-0"
             />
@@ -107,11 +107,11 @@ export default function Header() {
             <span className="text-sm text-nowrap self-end ml-2">
               {/* {user.username} */}
             </span>
-            <Image
+            {/* <Image
               src=`./assets/images/users/${$user->getImage()->getImgPath() ?>}`
               alt="User Image"
               className="rounded-full h-8 w-8"
-            />
+            /> */}
           </a>
         ) : (
           <a

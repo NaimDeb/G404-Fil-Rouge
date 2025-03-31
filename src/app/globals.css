@@ -10,3 +10,19 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+@layer base {
+  :root {
+    --primary-green: 74 124 89;
+    --primary-beige: 250 243 221;
+    --off-white: 247 247 247;
+    --off-black: 40 40 40;
+  }
+
+  .dark {
+    --primary-green: 84 134 99;
+    --primary-beige: 240 233 211;
+    --off-white: 40 40 40;
+    --off-black: 247 247 247;
+  }
+}
