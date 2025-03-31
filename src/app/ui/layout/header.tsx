@@ -15,18 +15,18 @@ export default function Header() {
           </a>
 
           {/* Logo  */}
-          <a href="./home.php" className="w-[80%] md:order-1 mx-auto md:px-2">
+          <a href="./home.php" className="w-[100%] md:order-1 mx-auto md:px-2">
             <Image
-              src="./assets/images/Logo.svg"
-              width={32}
-              height={32}
+              src="/Logo.svg"
+              width={192}
+              height={48}
               alt="Logo Bookmarket"
               className="object-scale-down max-h-12 mx-auto sm:mx-0"
             />
           </a>
 
           {/* User sm et moins  */}
-          {true ? (
+          {false ? (
             <a
               href="./profile.php"
               className="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center"
@@ -99,7 +99,7 @@ export default function Header() {
         </div>
 
         {/* User (md+) */}
-        {true ? (
+        {false ? (
           <a
             href="./profile.php"
             className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center"

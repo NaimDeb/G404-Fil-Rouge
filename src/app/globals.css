@@ -1,6 +1,19 @@
 @import "tailwindcss";
 
 
+@theme {
+
+
+  --font-open-sans : ["Open Sans", "sans-serif"];
+  --font-merriweather : ["Merriweather", "serif"];
+  --font-merriweather-sans : ["Merriweather Sans", "sans-serif"];
+
+  --color-primary-green: rgb(var(--primary-green));
+  --color-primary-beige: rgb(var(--primary-beige));
+  --color-off-white: rgb(var(--off-white));
+  --color-off-black: rgb(var(--off-black));
+}
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -26,3 +39,4 @@
     --off-black: 247 247 247;
   }
 }
+
