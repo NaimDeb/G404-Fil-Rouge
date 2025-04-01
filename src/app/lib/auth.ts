@@ -18,7 +18,9 @@ export type User = {
     companyAddress: string | null;
     companyPhone: string | null;
   };
-  image: string | null;
+  image: {
+    imgPath: string | null;
+  };
 }
 
 export async function login(email: string, password: string) {

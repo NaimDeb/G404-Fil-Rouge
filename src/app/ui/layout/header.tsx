@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useAuth } from "@/app/context/AuthContext";
 
 export default function Header() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout } = useAuth();  
+  
 
   return (
     <header className="bg-primary-green w-full h-[11vh] md:h-fit flex flex-col py-4 px-4 md:px-8">
@@ -44,7 +45,7 @@ export default function Header() {
               </span>
 
               <Image
-                src={user?.image || "/users/default.png"}
+                src={"/users/" + (user?.image.imgPath || "default.png")}
                 alt="User Image"
                 width={32}
                 height={32}
@@ -113,7 +114,7 @@ export default function Header() {
         {isAuthenticated ? (
           <div className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
             <Image
-              src="/users/default.png"
+              src={"/users/" + (user?.image.imgPath || "default.png")}
               alt="User Image"
               width={32}
               height={32}
