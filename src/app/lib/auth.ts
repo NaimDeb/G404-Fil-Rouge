@@ -14,10 +14,10 @@ export type User = {
     lastName: string;
   };
   professionalDetails: {
-    companyName: string | null;
-    companyAddress: string | null;
-    companyPhone: string | null;
-  };
+    companyName: string;
+    companyAddress: string;
+    companyPhone: string;
+  } | null;
   image: {
     imgPath: string | null;
   };

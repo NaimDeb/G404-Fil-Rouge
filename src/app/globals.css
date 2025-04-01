@@ -24,6 +24,7 @@
   scrollbar-width: none;  /* Firefox */
 }
 
+
 @layer base {
   :root {
     --primary-green: 74 124 89;
