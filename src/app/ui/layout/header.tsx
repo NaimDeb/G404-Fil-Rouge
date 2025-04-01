@@ -1,6 +1,12 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function Header() {
+  const { isAuthenticated, user, logout } = useAuth();
+
   return (
     <header className="bg-primary-green w-full h-[11vh] md:h-fit flex flex-col py-4 px-4 md:px-8">
       <div className="md:h-full flex flex-col md:flex-row md:items-center md:justify-between">
@@ -15,38 +21,43 @@ export default function Header() {
           </a>
 
           {/* Logo  */}
-          <a href="./home.php" className="w-[100%] md:order-1 mx-auto md:px-2">
-            <Image
-              src="/Logo.svg"
-              width={192}
-              height={48}
-              alt="Logo Bookmarket"
-              className="object-scale-down max-h-12 mx-auto sm:mx-0"
-            />
-          </a>
+          <button className="w-[100%] md:order-1 mx-auto md:px-2">
+            <Link href="/" key="home">
+              <Image
+                src="/Logo.svg"
+                width={192}
+                height={48}
+                alt="Logo Bookmarket"
+                className="object-scale-down max-h-12 mx-auto sm:mx-0"
+              />
+            </Link>
+          </button>
 
           {/* User sm et moins  */}
-          {false ? (
+          {isAuthenticated ? (
             <a
               href="./profile.php"
               className="flex gap-2 text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center"
             >
               <span className="text-sm text-nowrap self-end ml-2">
-                {/* {user.getUsername()} */}
+                {user?.username}
               </span>
-              {/* <Image
-                // src={`./assets/images/users/${user.getImage().getImgPath()}`}
+
+              <Image
+                src={user?.image || "/users/default.png"}
                 alt="User Image"
+                width={32}
+                height={32}
                 className="rounded-full h-8 w-8"
-              /> */}
+              />
             </a>
           ) : (
-            <a
-              href="./login.php"
+            <Link
+              href="/login"
               className="sm:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 md:hidden cursor-pointer items-center"
             >
               <i className="fas fa-user"></i>
-            </a>
+            </Link>
           )}
         </div>
 
@@ -99,30 +110,31 @@ export default function Header() {
         </div>
 
         {/* User (md+) */}
-        {false ? (
-          <a
-            href="./profile.php"
-            className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center"
-          >
-            <span className="text-sm text-nowrap self-end ml-2">
-              {/* {user.username} */}
-            </span>
-            {/* <Image
-              src=`./assets/images/users/${$user->getImage()->getImgPath() ?>}`
+        {isAuthenticated ? (
+          <div className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <Image
+              src="/users/default.png"
               alt="User Image"
+              width={32}
+              height={32}
               className="rounded-full h-8 w-8"
-            /> */}
-          </a>
-        ) : (
-          <a
-            href="./login.php"
-            className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center"
-          >
+            />
             <span className="text-sm text-nowrap self-end mr-2">
-              Se connecter
+              {user?.username}
             </span>
+            <button onClick={logout} className="ml-2">
+              <i className="fas fa-sign-out-alt"></i>
+            </button>
+          </div>
+        ) : (
+          <button className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <Link href="/login">
+              <span className="text-sm text-nowrap self-end mr-2">
+                Se connecter
+              </span>
+            </Link>
             <i className="fas fa-user"></i>
-          </a>
+          </button>
         )}
       </div>
 

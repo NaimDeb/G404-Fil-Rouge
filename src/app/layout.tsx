@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { merriweather } from "@/app/ui/fonts";
 import Header from "./ui/layout/header";
 import Footer from "./ui/layout/footer";
+import { AuthProvider } from "./context/AuthContext";
 
 
 export const metadata: Metadata = {
@@ -20,9 +21,11 @@ export default function RootLayout({
       <body
         className={`${merriweather.className} antialiased !bg-primary-beige`}
         >
-        <Header/>
-        {children}
-        <Footer/>
+        <AuthProvider>
+          <Header/>
+            {children}
+          <Footer/>
+        </AuthProvider>
       </body>
     </html>
   );

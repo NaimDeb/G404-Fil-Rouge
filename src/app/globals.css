@@ -10,8 +10,8 @@
 
   --color-primary-green: rgb(var(--primary-green));
   --color-primary-beige: rgb(var(--primary-beige));
-  --color-off-white: rgb(var(--off-white));
-  --color-off-black: rgb(var(--off-black));
+  --color-neutral-off-white: rgb(var(--off-white));
+  --color-neutral-off-black: rgb(var(--off-black));
 }
 
 .scrollbar-hide::-webkit-scrollbar {
