@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { me, User } from "../lib/auth";
+import { useRouter } from "next/navigation";
 
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
   logout: () => void;
 }
+
 
 // We create the context here, with the default values
 const AuthContext = createContext<AuthContextType>({
@@ -19,7 +21,8 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
-
+  const router = useRouter();
+  
   useEffect(() => {
     const initAuth = async () => {
       const token = localStorage.getItem("token");
@@ -38,11 +41,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
     initAuth();
   }, []);
-
+  
   const logout = () => {
     localStorage.removeItem("token");
     setIsAuthenticated(false);
     setUser(null);
+    router.push("/");
   };
 
   return (

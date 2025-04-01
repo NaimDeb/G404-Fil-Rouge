@@ -113,18 +113,20 @@ export default function Header() {
         {/* User (md+) */}
         {isAuthenticated ? (
           <div className="md:inline-flex text-neutral-off-white text-2xl px-2 sm:order-3 hidden items-center">
+            <Link href="/profile">
             <Image
               src={"/users/" + (user?.image.imgPath || "default.png")}
               alt="User Image"
               width={32}
               height={32}
               className="rounded-full h-8 w-8"
-            />
+              />
             <span className="text-sm text-nowrap self-end mr-2">
               {user?.username}
             </span>
+            </Link>
             <button onClick={logout} className="ml-2">
-              <i className="fas fa-sign-out-alt"></i>
+              <i className="fas fa-sign-out-alt">Déconnexion</i>
             </button>
           </div>
         ) : (

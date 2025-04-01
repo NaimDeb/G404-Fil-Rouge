@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   description: "Parcourez, achetez et gérez vos livres préférés",
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{

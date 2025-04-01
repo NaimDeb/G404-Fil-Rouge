@@ -32,6 +32,9 @@ export default function LoginPage() {
             console.log("Response : " + response);
             
             setError('Invalid email or password. Please try again.');
+            
+            router.refresh();
+
 
         }
 
