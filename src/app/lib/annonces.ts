@@ -4,6 +4,7 @@ export type Annonce = {
     id: number;
     price: string;
     productCondition: string;
+    condition: string;
     product: {
         id: string;
         type: string;
@@ -21,6 +22,7 @@ export type Annonce = {
         imgPath: string;
     }[];
     createdAt: string;
+    updatedAt: string;
 };
 
 

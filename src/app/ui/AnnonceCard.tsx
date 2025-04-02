@@ -9,7 +9,7 @@ export default function AnnonceCard({ annonce }: { annonce: Annonce }) {
 
   return (
     <article className="w-[160px] flex flex-col">
-      <Link href={`./article/${annonce.id}`} className="group w-full">
+      <Link href={`./annonce/${annonce.id}`} className="group w-full">
         <div className="relative w-full h-[200px] border-gray-400 border-[1px] rounded-md overflow-hidden">
           <Image
             src={`${
