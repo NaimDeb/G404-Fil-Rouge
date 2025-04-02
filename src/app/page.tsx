@@ -1,18 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import NewProductsSection from "./ui/NewProductsSection";
 
-// Mock data for products (replace with actual data fetching later)
-const mockProducts = [
-  {
-    id: 1,
-    title: "Sample Book 1",
-    author: "Author 1",
-    price: 1299,
-    condition: "Good",
-    image: "/books/sample1.jpg",
-  },
-  // Add more mock products as needed
-];
 
 export default function Home() {
   return (
@@ -49,31 +38,7 @@ export default function Home() {
             </div>
         </section>
 
-        {/* New Products Section */}
-        <section className="py-8 px-8">
-          <h2 className="font-merriweather text-2xl font-bold mb-4 md:text-3xl">
-            Nouveaux produits
-          </h2>
-
-          <div className="flex gap-8 flex-nowrap h-fit my-16 mx-8 overflow-x-auto">
-            {mockProducts.map((product) => (
-              <div key={product.id} className="min-w-[200px] flex-shrink-0">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  width={200}
-                  height={300}
-                  className="w-full h-auto object-cover"
-                />
-                <h3 className="font-semibold mt-2">{product.title}</h3>
-                <p className="text-gray-600">{product.author}</p>
-                <p className="font-bold">
-                  {(product.price / 100).toFixed(2)} €
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
+        <NewProductsSection />
       </main>
     </div>
   );
