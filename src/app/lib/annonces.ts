@@ -37,7 +37,7 @@ export const getLastFiveAnnonces = async (): Promise<Annonce[]> => {
 };
 
 export const getAnnonceById = async (id: number): Promise<Annonce> => {
-    const response = await apiClient.get<Annonce>(`/annonce/${id}`);
+    const response = await apiClient.get<Annonce>(`/annonces/${id}`);
     return response.data;
 };
 

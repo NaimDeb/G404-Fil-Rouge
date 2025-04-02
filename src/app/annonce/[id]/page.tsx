@@ -1,7 +1,6 @@
-// Removed unused Image import
+import Image from "next/image";
 import Link from "next/link";
 import { getAnnonceById, Annonce } from "@/app/lib/annonces";
-
 
 // Using Next.js data fetching pattern
 const getAnnonce = async (id: string): Promise<Annonce> => {
@@ -38,32 +37,42 @@ export default async function AnnoncePage({ params }: { params: { id: string } }
   
   const {
     product: {
-      name: productName,
-      author: productAuthor,
-      specifications: productSpecifications,
-      type: productType,
-    },
-    price: annoncePrice,
-    condition: annonceCondition,
-  } = annonce;
+      name: productName = "Titre inconnu",
+      author: productAuthor = "Auteur inconnu",
+      specifications: productSpecifications = "Aucune description disponible",
+      type: productType = "",
+      image: productOriginalImage = "",
+      genres: productGenres = [],
+    } = {},
+    price: annoncePrice = 0,
+    condition: annonceCondition = "État non spécifié",
+  } = annonce || {};
+
+  // Safely convert values to string and provide fallbacks
+  const typeString = typeof productType === 'string' ? productType : 
+                    productType?.typeName || "Catégorie";
+  
+  const firstGenre = productGenres && productGenres.length > 0 ? 
+                    (typeof productGenres[0] === 'string' ? productGenres[0] : 
+                    productGenres[0]?.name || "Genre") : "Genre";
 
   return (
     <main>
       <section className="p-8 flex flex-col gap-2 lg:px-16 lg:justify-center text-neutral-off-black">
         <div className="flex flex-col sm:flex-row gap-4 lg:justify-center">
           <div className="bg-neutral-off-white w-full h-[80vw] sm:w-[40vw] sm:h-[40vw] lg:w-[500px] lg:h-[500px] py-4 outline outline-1 outline-gray-600 flex items-center justify-center max-md:basis-1/2">
-            {/* <Image
+            <Image
               src={`/book_covers/${productOriginalImage || "bookrandom.png"}`}
               alt="Image de livre"
               className="object-contain h-full"
               width={500}
               height={500}
-            /> */}
+            />
           </div>
           <div className="sm:flex sm:flex-col lg:justify-between lg:w-[500px] lg:h-[500px] gap-4">
             <p className="text-lg text-gray-500">
-              <Link href={`/categories/${productType.toLowerCase()}`}>{productType}</Link> &gt;{" "}
-              {/* <Link href={`/genres/${productGenres[0].toLowerCase()}`}>{productGenres[0]}</Link> */}
+              <Link href={`/categories/${typeString.toLowerCase()}`}>{typeString}</Link> &gt;{" "}
+              <Link href={`/genres/${firstGenre.toLowerCase()}`}>{firstGenre}</Link>
             </p>
             <div className="flex justify-between">
               <div className="flex-col">
