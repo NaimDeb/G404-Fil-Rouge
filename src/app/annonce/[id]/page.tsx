@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAnnonceById, Annonce } from "@/app/lib/annonces";
+import RelatedBooks from "@/app/ui/RelatedBooks";
 
 // Using Next.js data fetching pattern
 const getAnnonce = async (id: string): Promise<Annonce> => {
@@ -109,8 +110,7 @@ export default async function AnnoncePage({ params }: { params: { id: string } }
           Par le même auteur
         </h3>
         <div className="flex gap-4">
-          {/* This would be populated by a separate component or data fetch */}
-          {/* <RelatedBooks author={productAuthor} currentProductId={params.id} /> */}
+          <RelatedBooks author={productAuthor} currentProductId={params.id} />
         </div>
       </section>
     </main>
