@@ -8,24 +8,21 @@ export default function AnnonceCard({ annonce }: { annonce: Annonce }) {
   const priceEuros = (price - priceCents) / 100;
 
   return (
-    <article className="w-[180px] h-[180px]">
-      <Link
-        href={`./article/${annonce.id}`}
-        className="group w-full h-full"
-      >
-        <div className="relative w-full h-full border-gray-400 border-[1px] flex items-center justify-center">
+    <article className="w-[160px] flex flex-col">
+      <Link href={`./article/${annonce.id}`} className="group w-full">
+        <div className="relative w-full h-[200px] border-gray-400 border-[1px] rounded-md overflow-hidden">
           <Image
             src={`${
               annonce.images[0].imgPath || "/book_covers/book_cover_default.png"
             }`}
             alt="Image de livre"
-            className="object-contain max-w-full max-h-full"
-            width={180}
-            height={180}
+            className="object-contain hover:scale-105 transition-transform duration-200"
+            fill
+            sizes="160px"
           />
         </div>
 
-        <div className="flex flex-col mt-2">
+        <div className="flex flex-col mt-2 gap-1">
           <h3 className="font-merriweather font-bold truncate text-lg">
             {annonce.product.name}
           </h3>
