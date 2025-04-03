@@ -5,7 +5,7 @@ export type User = {
   password: string;
   username: string;
   profileDesc: string;
-  roles : Array<string>;
+  roles : string[];
   userDetails: {
     address: string;
     phone: string;

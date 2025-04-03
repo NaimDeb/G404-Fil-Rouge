@@ -8,6 +8,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
   logout: () => void;
+  isProfessional: boolean | null;
 }
 
 
@@ -16,12 +17,14 @@ const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   user: null,
   logout: () => {},
+  isProfessional : null
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
   const router = useRouter();
+  const [isProfessional, setIsProfessional] = useState<boolean | null>(null);
   
   useEffect(() => {
     const initAuth = async () => {
@@ -31,6 +34,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           const user = await me();
           setUser(user);
           setIsAuthenticated(true);
+          setIsProfessional(user?.roles.includes("ROLE_PROFESSIONAL") || false);
         } catch (error) {
           console.error("Error fetching user data:", error);
           localStorage.removeItem("token");
@@ -49,8 +53,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     router.push("/");
   };
 
+  
+
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, user, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, logout, isProfessional }}>
       {children}
     </AuthContext.Provider>
   );
